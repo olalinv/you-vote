@@ -10,14 +10,14 @@ import { Vote } from './vote.schema';
 export type SurveyDocument = Survey & Document;
 
 @Schema()
-export class Survey {
+export class Survey extends Document {
   @Prop({
     type: Types.ObjectId,
     ref: Category.name,
     required: true,
     autopopulate: true,
   })
-  categoryId: Types.ObjectId;
+  categoryId: Category;
 
   @Prop()
   comments: Comment[];
@@ -37,7 +37,7 @@ export class Survey {
     required: true,
     autopopulate: { select: '-password' },
   })
-  userId: Types.ObjectId;
+  userId: User;
 
   @Prop()
   votes: Vote[];

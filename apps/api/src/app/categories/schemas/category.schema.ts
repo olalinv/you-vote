@@ -5,7 +5,7 @@ import { Survey } from '../../surveys/schemas/survey.schema';
 export type CategoryDocument = Category & Document;
 
 @Schema()
-export class Category {
+export class Category extends Document {
   @Prop({ required: true, unique: true })
   name: string;
 
