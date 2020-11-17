@@ -1,0 +1,28 @@
+/*------------------------------------------------------------------
+[SurveyList]
+-------------------------------------------------------------------*/
+
+:host {
+  // ::ng-deep {
+  .survey-list {
+    .survey {
+      max-width: 520px;
+      .votes {
+        .vote {
+          span {
+            color: var(--color-black-500);
+            display: block;
+            font-size: 0.8em;
+          }
+          .mat-icon {
+            font-size: 2em;
+          }
+          + .vote {
+            margin-top: 1rem;
+          }
+        }
+      }
+    }
+  }
+  // }
+}

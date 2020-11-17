@@ -1,0 +1,51 @@
+<div class="survey-add">
+  <h1>Crea tu encuesta</h1>
+  <mat-vertical-stepper linear #stepper>
+    <mat-step [stepControl]="questionFormGroup">
+      <form [formGroup]="questionFormGroup">
+        <ng-template matStepLabel>Haz una pregunta</ng-template>
+        <mat-form-field>
+          <mat-label>Pregunta</mat-label>
+          <input
+            matInput
+            placeholder="Introduce aquí la pregunta sobre la que deseas realizar la encuesta"
+            formControlName="question"
+            required
+          />
+        </mat-form-field>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="categoryFormGroup">
+      <form [formGroup]="categoryFormGroup">
+        <ng-template matStepLabel>Selecciona una categoría</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Categoría</mat-label>
+          <mat-select required>
+            <mat-option
+              *ngFor="let category of categories"
+              [value]="category.id"
+            >
+              {{ category.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="imageFormGroup">
+      <form [formGroup]="imageFormGroup">
+        <ng-template matStepLabel>Selecciona una imagen</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Imagen</mat-label>
+          <mat-select required>
+            <mat-option *ngFor="let image of images" [value]="image.id">
+              {{ image.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </mat-step>
+  </mat-vertical-stepper>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <button mat-raised-button color="primary">Publicar</button>
+  </div>
+</div>

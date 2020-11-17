@@ -1,0 +1,24 @@
+<div class="main-layout">
+  <header class="main-header">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <a href="/" class="logo">
+        <span class="logo-icon material-icons">bar_chart</span>
+        <span class="logo-text">YouVote</span>
+      </a>
+      <nav class="menu">
+        <ul>
+          <li><a href="/">Inicio</a></li>
+          <li><a href="#">Acerca</a></li>
+          <li><a href="#">Contacto</a></li>
+          <li><a (click)="openDialog('login')">Acceder</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+  <footer class="main-footer">
+    ©YouVote, {{ currentDate | date: 'yyyy' }}
+  </footer>
+</div>

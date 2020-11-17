@@ -1,10 +1,120 @@
 /*------------------------------------------------------------------
 [Theme]
+- Elements
+- Classes
 -------------------------------------------------------------------*/
 
-body {
-  background-color: var(--color-white);
-  color: var(--color-black-900);
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  margin: 0;
+// Elements
+html {
+  height: 100%;
+  body {
+    background-color: var(--color-white);
+    color: var(--color-black-900);
+    font-family: 'Lato', sans-serif;
+    font-size: var(--font-size-base);
+    font-weight: 400;
+    height: 100%;
+    line-height: var(--line-height-base);
+    margin: 0;
+    overflow-x: hidden;
+    a {
+      color: var(--color-primary);
+      cursor: pointer;
+      text-decoration: none;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+    h1 {
+      font-size: var(--font-size-h1);
+      line-height: var(--line-height-h1);
+    }
+    h2 {
+      font-size: var(--font-size-h2);
+      line-height: var(--line-height-h2);
+    }
+    h3 {
+      font-size: var(--font-size-h3);
+      line-height: var(--line-height-h3);
+    }
+    h4 {
+      font-size: var(--font-size-h4);
+      line-height: var(--line-height-h4);
+    }
+    h5 {
+      font-size: var(--font-size-h5);
+      line-height: var(--line-height-h5);
+    }
+    h6 {
+      font-size: var(--font-size-h6);
+      line-height: var(--line-height-h6);
+    }
+    img {
+      height: auto;
+      max-width: 100%;
+    }
+    // Classes
+    .btn {
+      background-color: var(--color-primary);
+      border-radius: 4px;
+      color: var(--color-white);
+      display: inline-block;
+      padding: 0.7rem 4rem;
+      text-align: center;
+    }
+    .full-width {
+      left: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      position: relative;
+      right: 50%;
+      width: 100vw;
+      img {
+        height: auto;
+        width: 100%;
+      }
+    }
+    .list-unstyled {
+      list-style: none;
+      padding-left: 0;
+    }
+    .mat-card {
+      font-family: inherit;
+      .mat-card-header {
+        .mat-card-header-text {
+          margin: 0;
+          width: 100%;
+        }
+      }
+    }
+    .mat-form-field {
+      display: block;
+    }
+  }
+  &.cdk-global-scrollblock {
+    overflow: hidden;
+    body {
+      overflow: hidden;
+      .cdk-overlay-container {
+        .cdk-global-overlay-wrapper {
+          overflow: auto;
+          pointer-events: auto;
+          .mat-dialog-container {
+            margin: 2rem;
+            .mat-icon-button-close {
+              position: absolute;
+              top: 0;
+              right: 0;
+            }
+          }
+        }
+      }
+    }
+  }
 }

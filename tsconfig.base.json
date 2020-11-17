@@ -16,8 +16,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@you-vote/api-interfaces": ["libs/api-interfaces/src/index.ts"],
-      "@you-vote/material": ["libs/material/src/index.ts"]
+      "@api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@app/*": ["apps/ui/src/app/*"],
+      "@environments/*": ["apps/ui/src/environments/*"],
+      "@material": ["libs/material/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,0 +1,70 @@
+<div class="survey-detail">
+  <h1>
+    ¿Cree que España debería tener como forma de gobierno una monarquía
+    parlamentaria?
+  </h1>
+  <div fxLayout="row" class="survey-result">
+    <div fxFlex="30">
+      <img src="https://via.placeholder.com/440x293" alt="Lorem ipsum dolor" />
+    </div>
+    <div
+      fxFlex="70"
+      fxLayout="row"
+      fxLayoutAlign="space-evenly stretch"
+      class="votes"
+    >
+      <div
+        fxFlex="33"
+        fxLayout="column"
+        fxLayoutAlign="space-evenly center"
+        class="vote"
+      >
+        <mat-icon>thumb_up_alt</mat-icon>
+        <span>33%</span>
+      </div>
+      <div
+        fxFlex="33"
+        fxLayout="column"
+        fxLayoutAlign="space-evenly center"
+        class="vote"
+      >
+        <mat-icon>thumb_down_alt</mat-icon>
+        <span>33%</span>
+      </div>
+      <div
+        fxFlex="33"
+        fxLayout="column"
+        fxLayoutAlign="space-evenly center"
+        class="vote"
+      >
+        <b class="ns-nc">NS/NC</b>
+        <span>33%</span>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="survey-vote">
+    <div fxFlex="30" class="vote-status">
+      Aún no has votado en esta encuesta.<br />¿Qué opinas?
+    </div>
+    <div
+      fxFlex="70"
+      fxLayout="row"
+      fxLayoutAlign="space-evenly stretch"
+      class="vote-options"
+    >
+      <div fxFlex="33" fxLayout="column" fxLayoutAlign="space-evenly center">
+        <mat-checkbox color="primary">Sí</mat-checkbox>
+      </div>
+      <div fxFlex="33" fxLayout="column" fxLayoutAlign="space-evenly center">
+        <mat-checkbox color="primary">No</mat-checkbox>
+      </div>
+      <div fxFlex="33" fxLayout="column" fxLayoutAlign="space-evenly center">
+        <mat-checkbox color="primary">NS/NC</mat-checkbox>
+      </div>
+    </div>
+  </div>
+  <h2>Tu opinión importa...</h2>
+  <you-vote-comment-list></you-vote-comment-list>
+  <h2>Deja un comentario...</h2>
+  <you-vote-comment-add></you-vote-comment-add>
+</div>

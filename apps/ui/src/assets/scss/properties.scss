@@ -4,9 +4,8 @@
 - Palettes
 -------------------------------------------------------------------*/
 
-// Colors
-
 :root {
+  // Colors
   --color-black: #000;
   --color-black-50: rgba(0, 0, 0, 0.05);
   --color-black-100: rgba(0, 0, 0, 0.1);
@@ -25,31 +24,46 @@
   --color-disabled: #e9e9e9;
   --color-info: #17a2b8;
   --color-light: #f8f9fa;
-  --color-primary: #007bff;
+  --color-primary: #47525e;
   --color-secondary: #6c757d;
   --color-success: #28a745;
   --color-warning: #ffc107;
   --color-white: #fff;
+  // Font
+  --font-size-base: 16px;
+  --font-size-h1: 1.75em;
+  --font-size-h2: 1.5em;
+  --font-size-h3: 1.35em;
+  --font-size-h4: 1.25em;
+  --font-size-h5: 1.15em;
+  --font-size-h6: 1em;
+  --line-height-base: 22px;
+  --line-height-h1: 32px;
+  --line-height-h2: 30px;
+  --line-height-h3: 28px;
+  --line-height-h4: 26px;
+  --line-height-h5: 24px;
+  --line-height-h6: 22px;
 }
 
 // Palettes
 
 // Base Primary color
 $base-primary: (
-  50: #e0efff,
-  100: #b3d7ff,
-  200: #80bdff,
-  300: #4da3ff,
-  400: #268fff,
-  500: #007bff,
-  600: #0073ff,
-  700: #0068ff,
-  800: #005eff,
-  900: #004bff,
-  A100: #ffffff,
-  A200: #f2f5ff,
-  A400: #bfceff,
-  A700: #a6baff,
+  50: #e9eaec,
+  100: #c8cbcf,
+  200: #a3a9af,
+  300: #7e868e,
+  400: #636c76,
+  500: #47525e,
+  600: #404b56,
+  700: #37414c,
+  800: #2f3842,
+  900: #202831,
+  A100: #7ab8ff,
+  A200: #479dff,
+  A400: #1481ff,
+  A700: #0074f9,
   contrast: (
     50: #000000,
     100: #000000,
@@ -63,9 +77,9 @@ $base-primary: (
     900: #ffffff,
     A100: #000000,
     A200: #000000,
-    A400: #000000,
-    A700: #000000
-  )
+    A400: #ffffff,
+    A700: #ffffff,
+  ),
 );
 
 // Base Accent color
@@ -98,8 +112,8 @@ $base-accent: (
     A100: #000000,
     A200: #000000,
     A400: #000000,
-    A700: #ffffff
-  )
+    A700: #ffffff,
+  ),
 );
 
 // Base Warn color
@@ -132,6 +146,6 @@ $base-warn: (
     A100: #000000,
     A200: #000000,
     A400: #000000,
-    A700: #000000
-  )
+    A700: #000000,
+  ),
 );

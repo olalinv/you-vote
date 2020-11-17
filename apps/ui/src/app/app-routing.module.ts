@@ -1,6 +1,8 @@
+// Angular
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainLayoutComponent } from './shared/components/main-layout/main-layout.component';
+// App
+import { MainLayoutComponent } from './_components/main-layout/main-layout.component';
 
 const routes: Routes = [
   /* Main layout routes */
@@ -12,6 +14,16 @@ const routes: Routes = [
         path: '',
         loadChildren: () =>
           import('./home/home.module').then((m) => m.HomeModule),
+      },
+      {
+        path: 'account',
+        loadChildren: () =>
+          import('./account/account.module').then((m) => m.AccountModule),
+      },
+      {
+        path: 'survey',
+        loadChildren: () =>
+          import('./survey/survey.module').then((m) => m.SurveyModule),
       },
     ],
   },

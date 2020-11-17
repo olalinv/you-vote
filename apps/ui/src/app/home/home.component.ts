@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '@app/_models';
 
 @Component({
   selector: 'you-vote-home',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  user: User;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  checkUserStatus(): void {
+
   }
 
 }
