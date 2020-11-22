@@ -1,7 +1,6 @@
-<div class="survey-detail">
+<div *ngIf="survey" class="survey-detail">
   <h1>
-    ¿Cree que España debería tener como forma de gobierno una monarquía
-    parlamentaria?
+    {{ survey.question }}
   </h1>
   <div fxLayout="row" class="survey-result">
     <div fxFlex="30">

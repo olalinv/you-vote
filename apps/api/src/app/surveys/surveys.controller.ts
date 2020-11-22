@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -8,6 +8,7 @@ import {
 import { SurveysService } from './surveys.service';
 import { CreateSurveyDto } from './dto/create-survey.dto';
 import { Survey } from './schemas/survey.schema';
+import { User } from '../users/schemas/user.schema';
 
 @ApiBearerAuth()
 @ApiTags('surveys')
@@ -27,7 +28,19 @@ export class SurveysController {
   }
 
   @Get()
-  async findAll(): Promise<Survey[]> {
-    return this.surveysService.findAll();
+  async findAll(@Query() query): Promise<Survey[]> {
+    return this.surveysService.findAll(query);
   }
+
+  @Get(':id')
+  async findById(@Param('id') id: string): Promise<Survey> {
+    return this.surveysService.findById(id);
+  }
+
+  // @Get(':userId')
+  // async findByUser(@Param('userId') userId: string): Promise<Survey[]> {
+  //   const user: User = new User();
+  //   user._id = userId;
+  //   return this.surveysService.findAllByUser(user);
+  // }
 }

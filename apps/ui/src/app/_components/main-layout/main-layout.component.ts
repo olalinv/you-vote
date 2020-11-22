@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { User } from '@app/_models';
+import { IUser } from '@api-interfaces';
 import { AccountService } from '@app/_services';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
@@ -11,7 +11,7 @@ import { RegisterComponent } from '../register/register.component';
   styleUrls: ['./main-layout.component.scss'],
 })
 export class MainLayoutComponent implements OnInit {
-  user: User;
+  user: IUser;
   currentDate: Date = new Date();
 
   constructor(
@@ -19,6 +19,7 @@ export class MainLayoutComponent implements OnInit {
     public dialog: MatDialog
   ) {
     this.user = this.accountService.userValue;
+    console.log(this.user);
   }
 
   ngOnInit(): void {}

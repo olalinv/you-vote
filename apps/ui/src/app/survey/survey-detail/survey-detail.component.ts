@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ISurvey, IUser } from '@api-interfaces';
+import { AccountService, SurveyService } from '@app/_services';
 
 @Component({
   selector: 'you-vote-survey-detail',
@@ -8,13 +10,22 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class SurveyDetailComponent implements OnInit {
   private surveyId: string;
-  public survey: object = {};
+  public survey: ISurvey;
 
-  constructor(public router: Router, public route: ActivatedRoute) {
+  private user: IUser;
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private surveyService: SurveyService,
+    private accountService: AccountService
+    ) {
     // Params
     this.route.paramMap.subscribe((params) => {
       this.surveyId = params.get('surveyId');
     });
+    // User
+    console.log(this.accountService.userValue);
   }
 
   ngOnInit(): void {
@@ -22,10 +33,10 @@ export class SurveyDetailComponent implements OnInit {
   }
 
   getSurvey = (surveyId: string) => {
-    // this.surveyService.get(surveyId).subscribe((response: object) => {
-    //   this.survey = response;
-    // }, (error: string) => {
-    //   console.log(error);
-    // });
+    this.surveyService.get(surveyId).subscribe((response: ISurvey) => {
+      this.survey = response;
+    }, (error: string) => {
+      console.log(error);
+    });
   }
 }

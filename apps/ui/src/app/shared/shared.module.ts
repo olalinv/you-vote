@@ -6,14 +6,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@material';
 // App
 import { SurveyListComponent } from '@app/_components/survey-list/survey-list.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [SurveyListComponent],
-  imports: [CommonModule, MaterialModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, MaterialModule],
   exports: [
     CommonModule,
-    MaterialModule,
+    RouterModule,
     ReactiveFormsModule,
+    MaterialModule,
     SurveyListComponent,
   ],
 })

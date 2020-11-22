@@ -11,6 +11,6 @@ export class CreateSurveyDto {
   readonly imageId: Image;
   readonly question: string;
   readonly surveyTypeId: SurveyType;
-  readonly userId: User;
+  readonly user: Partial<User>;
   readonly votes: Vote[];
 }

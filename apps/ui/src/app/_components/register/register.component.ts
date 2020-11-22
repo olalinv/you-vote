@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AccountService, AlertService } from '../../_services';
+import { IUser } from '@api-interfaces';
 
 @Component({
   selector: 'you-vote-register',
@@ -10,6 +11,7 @@ import { AccountService, AlertService } from '../../_services';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
+  private user: IUser;
   form: FormGroup;
   loading = false;
   submitted = false;
@@ -53,21 +55,29 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
+    console.log('form', this.form.value);
+
     this.loading = true;
+    this.prepareUser(this.form.value);
     this.accountService
-      .register(this.form.value)
+      .register(this.user)
       .pipe(first())
       .subscribe({
         next: () => {
           this.alertService.success('Registration successful', {
             keepAfterRouteChange: true,
           });
-          this.router.navigate(['../login'], { relativeTo: this.route });
+          // this.router.navigate(['../login'], { relativeTo: this.route });
         },
         error: (error) => {
           this.alertService.error(error);
           this.loading = false;
         },
       });
+  }
+
+  prepareUser = (values: object) => {
+    delete values['passwordRepeat'];
+    Object.assign(this.user, values);
   }
 }

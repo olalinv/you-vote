@@ -96,6 +96,22 @@ html {
     .mat-form-field {
       display: block;
     }
+    .mat-menu-panel {
+      &#mat-menu-panel-0 {
+        background-color: var(--color-primary);
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        .mat-menu-item {
+          color: var(--color-white);
+        }
+      }
+    }
+    .mat-tab-group {
+      .mat-tab-header,
+      .mat-tab-nav-bar {
+        border: none;
+      }
+    }
   }
   &.cdk-global-scrollblock {
     overflow: hidden;

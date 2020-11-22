@@ -54,7 +54,7 @@
           }
         }
       }
-      .menu {
+      .main-menu {
         font-size: 1em;
         margin-top: 0.4rem;
         @media (min-width: 768px) {
@@ -78,6 +78,23 @@
                 margin-left: 2rem;
               }
             }
+          }
+        }
+      }
+      .user-menu {
+        margin-bottom: 0.5rem;
+        margin-top: -1.5rem;
+        .mat-button {
+          background-color: var(--color-primary);
+          border-radius: 0;
+          color: var(--color-white);
+          font-size: 1em;
+          min-width: 9.7rem;
+          text-align: left;
+          text-transform: uppercase;
+          .mat-icon {
+            height: 28px;
+            margin-right: 0.5rem;
           }
         }
       }

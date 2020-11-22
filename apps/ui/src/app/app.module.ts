@@ -39,9 +39,7 @@ import { fakeBackendProvider } from './_helpers';
         hasBackdrop: true,
         width: 600,
       },
-    },
-    // provider used to create fake backend
-    // fakeBackendProvider,
+    }
   ],
   bootstrap: [AppComponent],
 })

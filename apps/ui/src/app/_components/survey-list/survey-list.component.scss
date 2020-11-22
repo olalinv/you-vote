@@ -6,7 +6,6 @@
   // ::ng-deep {
   .survey-list {
     .survey {
-      max-width: 520px;
       .votes {
         .vote {
           span {
@@ -17,8 +16,36 @@
           .mat-icon {
             font-size: 2em;
           }
-          + .vote {
-            margin-top: 1rem;
+        }
+      }
+      &.grid {
+        max-width: 520px;
+        .votes {
+          .vote {
+            + .vote {
+              margin-top: 1rem;
+            }
+          }
+        } 
+      }
+      &.list {
+        margin: 2rem 0;
+        .mat-card-image {
+          height: 100%;
+          margin: 0 -1rem;
+          object-fit: cover;
+          object-position: center;
+        }
+        .votes {
+          .vote {
+            .down {
+              position: relative;
+              top: 7px;
+            }
+            .ns-nc {
+              display: inline-block;
+              margin-bottom: 0.4rem;
+            }
           }
         }
       }

@@ -1,40 +1,92 @@
 <div class="survey-list">
-  <mat-card
-    fxLayout="row"
-    fxLayoutAlign="start strech"
-    class="mat-elevation-z0 survey"
-  >
-    <a>
-      <div fxFlex="80">
-        <img
-          mat-card-image
-          src="https://via.placeholder.com/440x293"
-          alt="Lorem ipsum dolor"
-        />
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>¿Lorem ipsum dolor sit amet?</mat-card-title>
-        </mat-card-header>
-      </div>
-      <div
-        fxFlex="20"
-        fxLayout="column"
-        fxLayoutAlign="start start"
-        class="mat-card-toolbar votes"
-      >
-        <div class="vote">
-          <mat-icon>thumb_up_alt</mat-icon>
-          <span>33%</span>
-        </div>
-        <div class="vote">
-          <mat-icon>thumb_down_alt</mat-icon>
-          <span>33%</span>
-        </div>
-        <div class="vote">
-          <b>NS/NC</b>
-          <span>33%</span>
-        </div>
-      </div>
-    </a>
-  </mat-card>
+  <ng-container *ngIf="mode === 'grid'; else list_mode">
+    <div fxLayout="row" fxLayoutAlign="space-between start"></div>
+    <div *ngFor="let survey of surveys; index as i" fxFlex="50">
+      <mat-card class="mat-elevation-z0 survey" [ngClass]="mode">
+        <a
+          [routerLink]="'survey/' + survey._id"
+          fxLayout="row"
+          fxLayoutAlign="start strech"
+        >
+          <div fxFlex="80">
+            <img
+              mat-card-image
+              src="https://via.placeholder.com/440x293"
+              alt="Lorem ipsum dolor"
+            />
+            <mat-card-header>
+              <mat-card-title>{{ survey.question }}</mat-card-title>
+            </mat-card-header>
+          </div>
+          <div
+            fxFlex="20"
+            fxLayout="column"
+            fxLayoutAlign="start start"
+            class="mat-card-toolbar votes"
+          >
+            <div class="vote">
+              <mat-icon class="up">thumb_up_alt</mat-icon>
+              <span>33%</span>
+            </div>
+            <div class="vote">
+              <mat-icon class="down">thumb_down_alt</mat-icon>
+              <span>33%</span>
+            </div>
+            <div class="vote">
+              <b class="ns-nc">NS/NC</b>
+              <span>33%</span>
+            </div>
+          </div>
+        </a>
+      </mat-card>
+    </div>
+  </ng-container>
+  <ng-template #list_mode>
+    <div *ngFor="let survey of surveys; index as i">
+      <mat-card class="mat-elevation-z0 survey" [ngClass]="mode">
+        <a
+          [routerLink]="'survey/' + survey._id"
+          fxLayout="row"
+          fxLayoutAlign="start strech"
+          fxLayoutGap="1rem"
+        >
+          <div fxFlex="20">
+            <img
+              mat-card-image
+              src="https://via.placeholder.com/440x293"
+              alt="Lorem ipsum dolor"
+            />
+          </div>
+          <div
+            fxFlex="80"
+            fxLayout="column"
+            fxLayoutAlign="space-between start"
+          >
+            <mat-card-header>
+              <mat-card-title>{{ survey.question }}</mat-card-title>
+            </mat-card-header>
+            <div
+              fxLayout="row"
+              fxLayoutAlign="start end"
+              fxLayoutGap="2rem"
+              class="mat-card-toolbar votes"
+            >
+              <div class="vote">
+                <mat-icon class="up">thumb_up_alt</mat-icon>
+                <span>33%</span>
+              </div>
+              <div class="vote">
+                <mat-icon class="down">thumb_down_alt</mat-icon>
+                <span>33%</span>
+              </div>
+              <div class="vote">
+                <b class="ns-nc">NS/NC</b>
+                <span>33%</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </mat-card>
+    </div>
+  </ng-template>
 </div>

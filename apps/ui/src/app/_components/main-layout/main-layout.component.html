@@ -1,11 +1,28 @@
 <div class="main-layout">
   <header class="main-header">
+    <div
+      *ngIf="user"
+      fxLayout="row"
+      fxLayoutAlign="end start"
+      class="user-menu"
+    >
+      <button mat-button [matMenuTriggerFor]="userMenu">
+        <mat-icon>menu</mat-icon>
+        Menu
+      </button>
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item routerLink="survey/add">Crear una encuesta</button>
+        <button mat-menu-item routerLink="account/my-surveys">Mis encuestas</button>
+        <button mat-menu-item routerLink="account/me">Mi cuenta</button>
+        <button mat-menu-item routerLink="/">Salir</button>
+      </mat-menu>
+    </div>
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <a href="/" class="logo">
         <span class="logo-icon material-icons">bar_chart</span>
         <span class="logo-text">YouVote</span>
       </a>
-      <nav class="menu">
+      <nav class="main-menu">
         <ul>
           <li><a href="/">Inicio</a></li>
           <li><a href="#">Acerca</a></li>

@@ -37,7 +37,7 @@ export class Survey extends Document {
     required: true,
     autopopulate: { select: '-password' },
   })
-  userId: User;
+  user: User;
 
   @Prop()
   votes: Vote[];

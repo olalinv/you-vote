@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 // App
 import { SharedModule } from '@app/shared/shared.module';
 import { AccountRoutingModule } from './account-routing.module';
-import { MyProfileComponent } from './my-profile/my-profile.component';
+import { MyAccountComponent } from './my-account/my-account.component';
 import { MySurveysComponent } from './my-surveys/my-surveys.component';
 
 @NgModule({
-  declarations: [MyProfileComponent, MySurveysComponent],
+  declarations: [MyAccountComponent, MySurveysComponent],
   imports: [
     SharedModule,
     AccountRoutingModule
