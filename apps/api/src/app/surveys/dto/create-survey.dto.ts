@@ -1,16 +1,15 @@
 import { Category } from '../../categories/schemas/category.schema';
 import { Comment } from '../schemas/comment.schema';
 import { Image } from '../schemas/image.schema';
-import { SurveyType } from '../schemas/survey-type.schema';
+import { SurveyType } from '../../surveytypes/schemas/surveytype.schema';
 import { User } from '../../users/schemas/user.schema';
-import { Vote } from '../schemas/vote.schema';
 
 export class CreateSurveyDto {
-  readonly categoryId: Category;
+  readonly category: Partial<Category>;
   readonly comments: Comment[];
-  readonly imageId: Image;
+  readonly imageId: Partial<Image>;
   readonly question: string;
-  readonly surveyTypeId: SurveyType;
+  surveytype: Partial<SurveyType>;
   readonly user: Partial<User>;
-  readonly votes: Vote[];
+  // readonly votes: Vote[];
 }

@@ -14,7 +14,7 @@
         <button mat-menu-item routerLink="survey/add">Crear una encuesta</button>
         <button mat-menu-item routerLink="account/my-surveys">Mis encuestas</button>
         <button mat-menu-item routerLink="account/me">Mi cuenta</button>
-        <button mat-menu-item routerLink="/">Salir</button>
+        <button mat-menu-item (click)="logOut()">Salir</button>
       </mat-menu>
     </div>
     <div fxLayout="row" fxLayoutAlign="space-between center">

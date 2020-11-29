@@ -1,7 +1,7 @@
 // Angular
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Lib
 import { MaterialModule } from '@material';
 // App
@@ -10,10 +10,11 @@ import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [SurveyListComponent],
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, MaterialModule],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, MaterialModule],
   exports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     ReactiveFormsModule,
     MaterialModule,
     SurveyListComponent,

@@ -8,7 +8,6 @@ import {
 import { SurveysService } from './surveys.service';
 import { CreateSurveyDto } from './dto/create-survey.dto';
 import { Survey } from './schemas/survey.schema';
-import { User } from '../users/schemas/user.schema';
 
 @ApiBearerAuth()
 @ApiTags('surveys')
@@ -24,6 +23,8 @@ export class SurveysController {
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   async create(@Body() createSurveyDto: CreateSurveyDto) {
+    // SurveyType is only 1 for now
+    createSurveyDto.surveytype = { _id: 1 };
     await this.surveysService.create(createSurveyDto);
   }
 

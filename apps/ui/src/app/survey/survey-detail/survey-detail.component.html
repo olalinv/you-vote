@@ -13,57 +13,51 @@
       class="votes"
     >
       <div
+        *ngFor="let answer of surveyAnswers"
         fxFlex="33"
         fxLayout="column"
         fxLayoutAlign="space-evenly center"
         class="vote"
       >
-        <mat-icon>thumb_up_alt</mat-icon>
-        <span>33%</span>
-      </div>
-      <div
-        fxFlex="33"
-        fxLayout="column"
-        fxLayoutAlign="space-evenly center"
-        class="vote"
-      >
-        <mat-icon>thumb_down_alt</mat-icon>
-        <span>33%</span>
-      </div>
-      <div
-        fxFlex="33"
-        fxLayout="column"
-        fxLayoutAlign="space-evenly center"
-        class="vote"
-      >
-        <b class="ns-nc">NS/NC</b>
-        <span>33%</span>
+        <mat-icon *ngIf="answer._id === 1">thumb_up_alt</mat-icon>
+        <mat-icon *ngIf="answer._id === 2">thumb_down_alt</mat-icon>
+        <b *ngIf="answer._id === 3" class="ns-nc">NS/NC</b>
+        <span>{{ answer.percent || 0 }}%</span>
       </div>
     </div>
   </div>
   <div fxLayout="row" fxLayoutAlign="space-between center" class="survey-vote">
     <div fxFlex="30" class="vote-status">
-      Aún no has votado en esta encuesta.<br />¿Qué opinas?
+      <ng-container *ngIf="!vote?._id; else you_voted"
+        >Aún no has votado en esta encuesta.<br />¿Qué opinas?</ng-container
+      >
+      <ng-template #you_voted>
+        Ya has votado en esta escuesta.
+      </ng-template>
     </div>
-    <div
-      fxFlex="70"
-      fxLayout="row"
-      fxLayoutAlign="space-evenly stretch"
-      class="vote-options"
-    >
-      <div fxFlex="33" fxLayout="column" fxLayoutAlign="space-evenly center">
-        <mat-checkbox color="primary">Sí</mat-checkbox>
-      </div>
-      <div fxFlex="33" fxLayout="column" fxLayoutAlign="space-evenly center">
-        <mat-checkbox color="primary">No</mat-checkbox>
-      </div>
-      <div fxFlex="33" fxLayout="column" fxLayoutAlign="space-evenly center">
-        <mat-checkbox color="primary">NS/NC</mat-checkbox>
-      </div>
+    <div fxFlex="70" class="vote-options">
+      <mat-radio-group
+        [(ngModel)]="myVote"
+        (change)="onVoteChange($event)"
+        fxLayout="row"
+        fxLayoutAlign="space-evenly stretch"
+        aria-label="Elige una opción"
+      >
+        <div
+          *ngFor="let answer of surveyAnswers"
+          fxFlex="33"
+          fxLayout="column"
+          fxLayoutAlign="space-evenly center"
+        >
+          <mat-radio-button [value]="answer._id" color="primary">{{
+            answer.name
+          }}</mat-radio-button>
+        </div>
+      </mat-radio-group>
     </div>
   </div>
   <h2>Tu opinión importa...</h2>
   <you-vote-comment-list></you-vote-comment-list>
   <h2>Deja un comentario...</h2>
-  <you-vote-comment-add></you-vote-comment-add>
+  <you-vote-comment-add (commentAddEvent)="onCommentAddChange($event)"></you-vote-comment-add>
 </div>

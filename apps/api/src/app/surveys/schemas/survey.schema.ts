@@ -1,11 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { Category } from '../../categories/schemas/category.schema';
+import { SurveyType } from '../../surveytypes/schemas/surveytype.schema';
 import { User } from '../../users/schemas/user.schema';
+import { Vote } from '../../votes/schemas/vote.schema';
 import { Comment } from './comment.schema';
 import { Image } from './image.schema';
-import { SurveyType } from './survey-type.schema';
-import { Vote } from './vote.schema';
 
 export type SurveyDocument = Survey & Document;
 
@@ -17,30 +17,35 @@ export class Survey extends Document {
     required: true,
     autopopulate: true,
   })
-  categoryId: Category;
+  category: Partial<Category>;
 
   @Prop()
   comments: Comment[];
 
   @Prop()
-  image: Image;
+  image: Partial<Image>;
 
   @Prop({ required: true })
   question: string;
 
-  @Prop()
-  surveyType: SurveyType;
+  @Prop({
+    type: Number,
+    ref: SurveyType.name,
+    required: true,
+    autopopulate: true
+  })
+  surveytype: Partial<SurveyType>;
 
   @Prop({
     type: Types.ObjectId,
     ref: User.name,
     required: true,
-    autopopulate: { select: '-password' },
+    autopopulate: { select: 'username' },
   })
-  user: User;
+  user: Partial<User>;
 
   @Prop()
-  votes: Vote[];
+  surveyResult: any;
 }
 
 export const SurveySchema = SchemaFactory.createForClass(Survey);

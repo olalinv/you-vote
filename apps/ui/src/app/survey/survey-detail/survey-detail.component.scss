@@ -11,6 +11,10 @@
     .survey-result {
       background-color: var(--color-black-50);
       margin: 3rem 0;
+      img {
+        min-height: 100%;
+        object-fit: cover;
+      }
     }
     .survey-vote {
       margin: 1rem 0;

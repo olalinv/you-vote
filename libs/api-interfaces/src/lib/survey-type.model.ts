@@ -1,6 +1,7 @@
 import { IAnswer } from './answer.model';
 
 export interface ISurveyType {
-  category: IAnswer[];
-  name: string;
+  readonly _id: string;
+  readonly answers: IAnswer[];
+  readonly name: string;
 }

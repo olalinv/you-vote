@@ -24,6 +24,10 @@ export class MainLayoutComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  logOut(): void {
+    this.accountService.logout();
+  }
+
   openDialog(component: string) {
     let dialogRef: MatDialogRef<any, any>;
     switch (component) {

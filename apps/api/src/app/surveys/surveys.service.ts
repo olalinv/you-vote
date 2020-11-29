@@ -1,13 +1,17 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Survey, SurveyDocument } from './schemas/survey.schema';
+import { Survey } from './schemas/survey.schema';
 import { CreateSurveyDto } from './dto/create-survey.dto';
 import { User } from '../users/schemas/user.schema';
+import { Vote } from '../votes/schemas/vote.schema';
 
 @Injectable()
 export class SurveysService {
-  constructor(@InjectModel(Survey.name) private surveyModel: Model<Survey>) {}
+  constructor(
+    @InjectModel(Survey.name) private surveyModel: Model<Survey>,
+    @InjectModel(Vote.name) private voteModel: Model<Vote>
+  ) {}
 
   async create(createSurveyDto: CreateSurveyDto): Promise<Survey> {
     const createdSurvey = new this.surveyModel(createSurveyDto);
@@ -23,6 +27,41 @@ export class SurveysService {
   }
 
   async findById(id: string): Promise<Survey> {
-    return this.surveyModel.findById(id).exec();
+    const survey = this.surveyModel.findById(id).exec();
+    const result: any = this.voteModel.aggregate([
+      {
+        $match: {
+          surveyId: id,
+        },
+      },
+      {
+        $group: {
+          _id: '$answerId',
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          answer: {
+            _id: '$_id',
+            count: '$count',
+          },
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          total: { $sum: 1 },
+          answers: { $addToSet: '$answer' },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+        },
+      },
+    ]);
+    (await survey).surveyResult = await result;
+    return survey;
   }
 }

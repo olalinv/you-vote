@@ -12,7 +12,7 @@
             required
             placeholder="Alias"
           />
-          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+          <div *ngIf="isSubmitted && f.username.errors" class="invalid-feedback">
             <div *ngIf="f.username.errors.required">Campo necesario</div>
           </div>
         </mat-form-field>
@@ -36,7 +36,7 @@
               hidePassword ? 'visibility_off' : 'visibility'
             }}</mat-icon>
           </button>
-          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+          <div *ngIf="isSubmitted && f.password.errors" class="invalid-feedback">
             <div *ngIf="f.password.errors.required">Campo necesario</div>
             <div *ngIf="f.password.errors.minlength">
               La contraseña debe tener al menos 8 caracteres
@@ -55,7 +55,7 @@
             required
             placeholder="email@ejemplo.com"
           />
-          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+          <div *ngIf="isSubmitted && f.email.errors" class="invalid-feedback">
             <div *ngIf="f.email.errors.required">Campo necesario</div>
           </div>
         </mat-form-field>
@@ -80,7 +80,7 @@
             }}</mat-icon>
           </button>
           <div
-            *ngIf="submitted && f.passwordRepeat.errors"
+            *ngIf="isSubmitted && f.passwordRepeat.errors"
             class="invalid-feedback"
           >
             <div *ngIf="f.passwordRepeat.errors.required">

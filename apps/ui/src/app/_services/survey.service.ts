@@ -2,7 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
-import { ISurvey, ISurveyListConfig } from '@api-interfaces';
+import { ISurvey, ISurveyListConfig, IVote } from '@api-interfaces';
 import { environment } from '@environments/environment';
 
 @Injectable({
@@ -19,7 +19,10 @@ export class SurveyService {
     Object.keys(config).forEach((key) => {
       params[key] = config[key];
     });
-    return this.apiService.get(this.apiUrl, new HttpParams({ fromObject: params }));
+    return this.apiService.get(
+      this.apiUrl,
+      new HttpParams({ fromObject: params })
+    );
   };
 
   get = (surveyId: string): Observable<ISurvey> => {

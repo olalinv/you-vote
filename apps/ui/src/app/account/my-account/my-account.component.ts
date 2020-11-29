@@ -14,7 +14,7 @@ export class MyAccountComponent implements OnInit {
   private user: IUser;
   form: FormGroup;
   loading = false;
-  submitted = false;
+  isSubmitted = false;
   hidePassword = true;
   hidePasswordRepeat = true;
 
@@ -57,7 +57,7 @@ export class MyAccountComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
+    this.isSubmitted = true;
 
     // reset alerts on submit
     this.alertService.clear();

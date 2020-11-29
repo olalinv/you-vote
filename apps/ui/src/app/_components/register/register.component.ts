@@ -11,7 +11,7 @@ import { IUser } from '@api-interfaces';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  private user: IUser;
+  private user: Partial<IUser> = {};
   form: FormGroup;
   loading = false;
   submitted = false;

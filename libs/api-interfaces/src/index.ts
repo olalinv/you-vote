@@ -4,6 +4,8 @@ export * from './lib/comment.model';
 export * from './lib/image.model';
 export * from './lib/survey.model';
 export * from './lib/survey-list.config.model';
+export * from './lib/survey-result.model';
 export * from './lib/survey-type.model';
 export * from './lib/user.model';
 export * from './lib/vote.model';
+export * from './lib/vote.config.model';

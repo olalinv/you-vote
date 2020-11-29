@@ -24,7 +24,7 @@ export class MySurveysComponent implements OnInit {
 
   getSurveys = () => {
     const surveyListConfig: ISurveyListConfig = {
-      user: this.user._id,
+      user: this.user ? this.user._id : null,
     };
     this.surveyService.query(surveyListConfig).subscribe(
       (response: ISurvey[]) => {
