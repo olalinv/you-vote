@@ -22,10 +22,10 @@ export class SurveysController {
     description: 'The survey has been successfully created.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  async create(@Body() createSurveyDto: CreateSurveyDto) {
+  async create(@Body() dto: CreateSurveyDto) {
     // SurveyType is only 1 for now
-    createSurveyDto.surveytype = { _id: 1 };
-    await this.surveysService.create(createSurveyDto);
+    dto.surveytype = 1;
+    await this.surveysService.create(dto);
   }
 
   @Get()

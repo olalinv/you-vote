@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { Category } from '../../categories/schemas/category.schema';
+import { Comment } from '../../comments/schemas/comment.schema';
 import { SurveyType } from '../../surveytypes/schemas/surveytype.schema';
 import { User } from '../../users/schemas/user.schema';
-import { Vote } from '../../votes/schemas/vote.schema';
-import { Comment } from './comment.schema';
+
 import { Image } from './image.schema';
 
 export type SurveyDocument = Survey & Document;
@@ -32,7 +32,7 @@ export class Survey extends Document {
     type: Number,
     ref: SurveyType.name,
     required: true,
-    autopopulate: true
+    autopopulate: true,
   })
   surveytype: Partial<SurveyType>;
 

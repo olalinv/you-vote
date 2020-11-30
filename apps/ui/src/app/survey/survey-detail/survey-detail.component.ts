@@ -11,7 +11,7 @@ import {
   IUser,
   IVote,
 } from '@api-interfaces';
-import { AccountService, SurveyService, VoteService } from '@app/_services';
+import { AccountService, CommentService, SurveyService, VoteService } from '@app/_services';
 
 @Component({
   selector: 'you-vote-survey-detail',
@@ -34,7 +34,8 @@ export class SurveyDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private accountService: AccountService,
     private surveyService: SurveyService,
-    private voteService: VoteService
+    private voteService: VoteService,
+    private commentService: CommentService
   ) {
     // Params
     this.route.paramMap.subscribe((params) => {
@@ -68,6 +69,7 @@ export class SurveyDetailComponent implements OnInit {
         } else {
           this.surveyAnswers = response.surveytype.answers;
         }
+        this.getComments(surveyId);
       },
       (error: string) => {
         console.log(error);
@@ -85,6 +87,17 @@ export class SurveyDetailComponent implements OnInit {
             this.myVote = this.vote.answerId;
           }
         }
+      },
+      (error: string) => {
+        console.log(error);
+      }
+    );
+  };
+
+  getComments = (surveyId: string) => {
+    this.commentService.getBySurveyId(surveyId).subscribe(
+      (response: IComment[]) => {
+        this.survey.comments = response;
       },
       (error: string) => {
         console.log(error);

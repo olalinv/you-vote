@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IComment } from '@api-interfaces';
 
 @Component({
   selector: 'you-vote-comment-list',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./comment-list.component.scss']
 })
 export class CommentListComponent implements OnInit {
+
+  @Input() comments: IComment[];
 
   constructor() { }
 

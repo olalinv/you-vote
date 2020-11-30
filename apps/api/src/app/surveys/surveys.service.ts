@@ -13,8 +13,8 @@ export class SurveysService {
     @InjectModel(Vote.name) private voteModel: Model<Vote>
   ) {}
 
-  async create(createSurveyDto: CreateSurveyDto): Promise<Survey> {
-    const createdSurvey = new this.surveyModel(createSurveyDto);
+  async create(dto: CreateSurveyDto): Promise<Survey> {
+    const createdSurvey = new this.surveyModel(dto);
     return createdSurvey.save();
   }
 

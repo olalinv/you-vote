@@ -1,0 +1,19 @@
+/*------------------------------------------------------------------
+[CommentList]
+-------------------------------------------------------------------*/
+
+:host {
+  // ::ng-deep {
+  .comment-list {
+    .comment {
+      .meta {
+        color: var(--color-primary);
+        margin-bottom: 0.5rem;
+        .mat-icon {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+  // }
+}

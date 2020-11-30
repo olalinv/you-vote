@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AnswersModule } from './answers/answers.module';
 import { AppController } from './app.controller';
 import { CategoriesModule } from './categories/categories.module';
+import { CommentsModule } from './comments/comments.module';
 import { SurveysModule } from './surveys/surveys.module';
 import { SurveyTypesModule } from './surveytypes/surveytypes.module';
 import { UsersModule } from './users/users.module';
@@ -18,6 +19,7 @@ import { VotesModule } from './votes/votes.module';
     }),
     AnswersModule,
     CategoriesModule,
+    CommentsModule,
     SurveyTypesModule,
     SurveysModule,
     UsersModule,

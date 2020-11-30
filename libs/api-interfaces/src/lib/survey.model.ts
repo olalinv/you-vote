@@ -9,7 +9,7 @@ import { IVote } from './vote.model';
 export interface ISurvey {
   readonly _id: string;
   readonly category: ICategory;
-  readonly comments: IComment[];
+  comments: IComment[];
   readonly image: IImage;
   readonly question: string;
   readonly surveytype: ISurveyType;

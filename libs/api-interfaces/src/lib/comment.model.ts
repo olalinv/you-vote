@@ -1,4 +1,9 @@
+import { IUser } from '@api-interfaces';
+
 export interface IComment {
-  authorName?: string;
   content?: string;
+  readonly createdAt?: string;
+  readonly _id?: string;
+  readonly updatedAt?: string;
+  user?: Partial<IUser>;
 }
