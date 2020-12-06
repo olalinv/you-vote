@@ -11,8 +11,12 @@
         Menu
       </button>
       <mat-menu #userMenu="matMenu">
-        <button mat-menu-item routerLink="survey/add">Crear una encuesta</button>
-        <button mat-menu-item routerLink="account/my-surveys">Mis encuestas</button>
+        <button mat-menu-item routerLink="survey/add">
+          Crear una encuesta
+        </button>
+        <button mat-menu-item routerLink="account/my-surveys">
+          Mis encuestas
+        </button>
         <button mat-menu-item routerLink="account/me">Mi cuenta</button>
         <button mat-menu-item (click)="logOut()">Salir</button>
       </mat-menu>
@@ -25,8 +29,7 @@
       <nav class="main-menu">
         <ul>
           <li><a href="/">Inicio</a></li>
-          <li><a href="#">Acerca</a></li>
-          <li><a href="#">Contacto</a></li>
+          <li><a href="about">Acerca de</a></li>
           <li><a (click)="openDialog('login')">Acceder</a></li>
         </ul>
       </nav>

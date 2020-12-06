@@ -2,7 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
-import { ISurvey, ISurveyListConfig, IVote } from '@api-interfaces';
+import { ICreateSurveyDto, ISurvey, ISurveyListConfig } from '@api-interfaces';
 import { environment } from '@environments/environment';
 
 @Injectable({
@@ -32,7 +32,7 @@ export class SurveyService {
     );
   };
 
-  save = (survey: ISurvey): Observable<ISurvey> => {
+  save = (survey: ICreateSurveyDto): Observable<ISurvey> => {
     if (survey._id) {
       return this.apiService.put(`${this.apiUrl}/${survey._id}`, survey);
     } else {

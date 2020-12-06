@@ -1,3 +1,4 @@
 export interface IImage {
-  source: string;
+  readonly _id: string;
+  readonly name: string;
 }

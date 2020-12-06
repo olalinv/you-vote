@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import {
   IAnswer,
   IComment,
@@ -11,7 +10,13 @@ import {
   IUser,
   IVote,
 } from '@api-interfaces';
-import { AccountService, CommentService, SurveyService, VoteService } from '@app/_services';
+import {
+  AccountService,
+  CommentService,
+  SharedService,
+  SurveyService,
+  VoteService,
+} from '@app/_services';
 
 @Component({
   selector: 'you-vote-survey-detail',
@@ -20,22 +25,22 @@ import { AccountService, CommentService, SurveyService, VoteService } from '@app
 })
 export class SurveyDetailComponent implements OnInit {
   private surveyId: string;
-  public survey: ISurvey;
-  private user: IUser;
-  public vote: IVote;
+  survey: ISurvey;
+  user: IUser;
+  vote: IVote;
 
   myVote: number;
   submitted = false;
 
-  public surveyAnswers: IAnswer[] = [];
+  surveyAnswers: IAnswer[] = [];
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private accountService: AccountService,
     private surveyService: SurveyService,
     private voteService: VoteService,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private sharedService: SharedService
   ) {
     // Params
     this.route.paramMap.subscribe((params) => {
@@ -137,6 +142,10 @@ export class SurveyDetailComponent implements OnInit {
     });
     return surveyAnswers;
   };
+
+  openDialog(component: string): void {
+    this.sharedService.openDialog(component);
+  }
 
   onVoteChange = ($event: MatRadioChange) => {
     this.saveVote($event.value);

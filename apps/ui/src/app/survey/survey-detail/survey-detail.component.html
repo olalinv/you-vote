@@ -4,7 +4,10 @@
   </h1>
   <div fxLayout="row" class="survey-result">
     <div fxFlex="30">
-      <img src="https://via.placeholder.com/440x293" alt="Lorem ipsum dolor" />
+      <img
+        src="assets/img/{{ survey.image.name }}"
+        alt="{{ survey.image.name }}"
+      />
     </div>
     <div
       fxFlex="70"
@@ -27,7 +30,7 @@
     </div>
   </div>
   <div fxLayout="row" fxLayoutAlign="space-between center" class="survey-vote">
-    <div fxFlex="30" class="vote-status">
+    <div *ngIf="user" fxFlex="30" class="vote-status">
       <ng-container *ngIf="!vote?._id; else you_voted"
         >Aún no has votado en esta encuesta.<br />¿Qué opinas?</ng-container
       >
@@ -35,7 +38,7 @@
         Ya has votado en esta escuesta.
       </ng-template>
     </div>
-    <div fxFlex="70" class="vote-options">
+    <div *ngIf="user; else login_to_vote" fxFlex="70" class="vote-options">
       <mat-radio-group
         [(ngModel)]="myVote"
         (change)="onVoteChange($event)"
@@ -55,14 +58,32 @@
         </div>
       </mat-radio-group>
     </div>
+    <ng-template #login_to_vote>
+      <div fxFlex="70" fxFlexOffset="30" class="vote-status">
+        Para votar y dejar un comentario, por favor,
+        <a (click)="openDialog('login')">inicia sesión</a>.
+      </div>
+    </ng-template>
   </div>
-  <h2>Tu opinión importa...</h2>
-  <you-vote-comment-list
-    *ngIf="survey.comments"
-    [comments]="survey.comments"
-  ></you-vote-comment-list>
-  <h2>Deja un comentario...</h2>
-  <you-vote-comment-add
-    (commentAddEvent)="onCommentAddChange($event)"
-  ></you-vote-comment-add>
+  <div class="comment-add">
+    <h2>Deja un comentario...</h2>
+    <you-vote-comment-add
+      *ngIf="user; else login_to_comment"
+      (commentAddEvent)="onCommentAddChange($event)"
+    ></you-vote-comment-add>
+    <ng-template #login_to_comment>
+      Para compartir tu opinión, por favor,
+      <a (click)="openDialog('login')">inicia sesión</a>.
+    </ng-template>
+  </div>
+  <div class="comment-list">
+    <h2>Tu opinión importa...</h2>
+    <you-vote-comment-list
+      *ngIf="survey.comments.length > 0; else no_comments"
+      [comments]="survey.comments"
+    ></you-vote-comment-list>
+    <ng-template #no_comments>
+      Nadie ha compartido su opinión todavía.
+    </ng-template>
+  </div>
 </div>

@@ -84,6 +84,7 @@ html {
       list-style: none;
       padding-left: 0;
     }
+    // MatCard
     .mat-card {
       font-family: inherit;
       .mat-card-header {
@@ -93,9 +94,11 @@ html {
         }
       }
     }
+    // MatFormField
     .mat-form-field {
       display: block;
     }
+    // MetMenu
     .mat-menu-panel {
       &#mat-menu-panel-0 {
         background-color: var(--color-primary);
@@ -106,6 +109,15 @@ html {
         }
       }
     }
+    // MatSelect
+    .mat-select-panel {
+      .mat-option {
+        &.mat-option-image {
+          height: 6rem;
+        }
+      }
+    }
+    // MatTab
     .mat-tab-group {
       .mat-tab-header,
       .mat-tab-nav-bar {

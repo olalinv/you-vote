@@ -7,6 +7,9 @@ export type CategoryDocument = Category & Document;
 @Schema()
 export class Category extends Document {
   @Prop({ required: true, unique: true })
+  _id: Number;
+
+  @Prop({ required: true, unique: true })
   name: string;
 
   // @Prop({ type: [Types.ObjectId], ref: 'Survey', autopopulate: true })

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { IUser } from '@api-interfaces';
-import { AccountService } from '@app/_services';
+import { AccountService, SharedService } from '@app/_services';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 
@@ -13,34 +13,42 @@ import { RegisterComponent } from '../register/register.component';
 export class MainLayoutComponent implements OnInit {
   user: IUser;
   currentDate: Date = new Date();
+  dialogRef: MatDialogRef<any, any>;
 
   constructor(
+    public dialog: MatDialog,
     private accountService: AccountService,
-    public dialog: MatDialog
+    private sharedService: SharedService
   ) {
     this.user = this.accountService.userValue;
     console.log(this.user);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Subscriptions
+    this.sharedService.dialog$.subscribe((component: string) => {
+      if (component) {
+        this.openDialog(component);
+      }
+    });
+  }
 
   logOut(): void {
     this.accountService.logout();
   }
 
   openDialog(component: string) {
-    let dialogRef: MatDialogRef<any, any>;
     switch (component) {
       case 'login':
-        dialogRef = this.dialog.open(LoginComponent);
+        this.dialogRef = this.dialog.open(LoginComponent);
         break;
       case 'register':
-        dialogRef = this.dialog.open(RegisterComponent, {
+        this.dialogRef = this.dialog.open(RegisterComponent, {
           width: '800px',
         });
         break;
     }
-    dialogRef.afterClosed().subscribe((result) => {
+    this.dialogRef.afterClosed().subscribe((result) => {
       if (result && typeof result === 'string') {
         this.openDialog(result);
       }

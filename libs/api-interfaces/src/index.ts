@@ -1,6 +1,7 @@
 export * from './lib/answer.model';
 export * from './lib/category.model';
 export * from './lib/comment.model';
+export * from './lib/create-survey-dto.model';
 export * from './lib/image.model';
 export * from './lib/survey.model';
 export * from './lib/survey-list.config.model';

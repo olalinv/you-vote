@@ -19,7 +19,13 @@ export class SurveysService {
   }
 
   async findAll(query: (err: any, res: Survey[]) => void): Promise<Survey[]> {
-    return this.surveyModel.find(query).exec();
+    const surveys = await this.surveyModel.find(query).exec();
+    await Promise.all(
+      surveys.map(async (survey) => {
+        survey.surveyResult = await this.findAllVotes(survey.id);
+      })
+    );
+    return surveys;
   }
 
   async findAllByUser(user: User): Promise<Survey[]> {
@@ -27,8 +33,13 @@ export class SurveysService {
   }
 
   async findById(id: string): Promise<Survey> {
-    const survey = this.surveyModel.findById(id).exec();
-    const result: any = this.voteModel.aggregate([
+    const survey = await this.surveyModel.findById(id).exec();
+    survey.surveyResult = await this.findAllVotes(id);
+    return survey;
+  }
+
+  async findAllVotes(id: string): Promise<any> {
+    return this.voteModel.aggregate([
       {
         $match: {
           surveyId: id,
@@ -61,7 +72,5 @@ export class SurveysService {
         },
       },
     ]);
-    (await survey).surveyResult = await result;
-    return survey;
   }
 }

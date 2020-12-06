@@ -25,7 +25,7 @@ export class Survey extends Document {
     type: Types.ObjectId,
     ref: Image.name,
     required: true,
-    autopopulate: true,
+    autopopulate: { select: 'name' },
   })
   image: Partial<Image>;
 
