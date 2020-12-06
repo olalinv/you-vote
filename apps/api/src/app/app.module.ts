@@ -11,19 +11,22 @@ import { VotesModule } from './votes/votes.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/youvote', {
-      connectionFactory: (connection) => {
-        connection.plugin(require('mongoose-autopopulate'));
-        return connection;
-      },
-    }),
+    MongooseModule.forRoot(
+      process.env.MONGODB_URI || 'mongodb://localhost/youvote',
+      {
+        connectionFactory: (connection) => {
+          connection.plugin(require('mongoose-autopopulate'));
+          return connection;
+        },
+      }
+    ),
     AnswersModule,
     CategoriesModule,
     CommentsModule,
     SurveyTypesModule,
     SurveysModule,
     UsersModule,
-    VotesModule
+    VotesModule,
   ],
   controllers: [AppController],
   providers: [],
