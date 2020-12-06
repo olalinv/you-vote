@@ -2,10 +2,9 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { Category } from '../../categories/schemas/category.schema';
 import { Comment } from '../../comments/schemas/comment.schema';
+import { Image } from '../../images/schemas/image.schema';
 import { SurveyType } from '../../surveytypes/schemas/surveytype.schema';
 import { User } from '../../users/schemas/user.schema';
-
-import { Image } from './image.schema';
 
 export type SurveyDocument = Survey & Document;
 
@@ -22,7 +21,12 @@ export class Survey extends Document {
   @Prop()
   comments: Comment[];
 
-  @Prop()
+  @Prop({
+    type: Types.ObjectId,
+    ref: Image.name,
+    required: true,
+    autopopulate: true,
+  })
   image: Partial<Image>;
 
   @Prop({ required: true })

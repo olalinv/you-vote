@@ -4,8 +4,8 @@ import { Document } from 'mongoose';
 export type ImageDocument = Image & Document;
 
 @Schema()
-export class Image {
-  @Prop({ required: true })
+export class Image extends Document {
+  @Prop({ required: true, unique: true })
   source: string;
 }
 
