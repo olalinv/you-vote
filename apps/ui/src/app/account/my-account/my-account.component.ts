@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { IUser } from '@api-interfaces';
-import { AccountService } from '@app/_services';
+import { AccountService, SharedService } from '@app/_services';
+import { MustMatchValidator } from '@app/_validators/must-match.validator';
 
 @Component({
   selector: 'you-vote-my-account',
@@ -19,10 +20,9 @@ export class MyAccountComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private accountService: AccountService
-  ) {
-    this.user = this.accountService.userValue;
-  }
+    private accountService: AccountService,
+    private sharedService: SharedService
+  ) {}
 
   // getter for easy access to form fields
   get f() {
@@ -30,26 +30,35 @@ export class MyAccountComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Subscriptions
+    this.accountService.user.subscribe((user: IUser) => {
+      this.user = user;
+    });
     this.initForm();
   }
 
   initForm() {
-    this.form = this.formBuilder.group({
-      username: [this.user.username, Validators.required],
-      email: [this.user.email, Validators.required],
-      password: [
-        this.user.password,
-        [Validators.required, Validators.minLength(8)],
-      ],
-      passwordRepeat: [
-        this.user.password,
-        [Validators.required, Validators.minLength(8)],
-      ],
-      yearBirth: [this.user.yearBirth],
-      gender: [this.user.gender],
-      provinceResidence: [this.user.provinceResidence],
-      countryOrigin: [this.user.countryOrigin],
-    });
+    this.form = this.formBuilder.group(
+      {
+        username: [this.user.username, Validators.required],
+        email: [this.user.email, Validators.required],
+        password: [
+          this.user.password,
+          [Validators.required, Validators.minLength(8)],
+        ],
+        passwordRepeat: [
+          this.user.password,
+          [Validators.required, Validators.minLength(8)],
+        ],
+        yearBirth: [this.user.yearBirth],
+        gender: [this.user.gender],
+        provinceResidence: [this.user.provinceResidence],
+        countryOrigin: [this.user.countryOrigin],
+      },
+      {
+        validators: [MustMatchValidator('password', 'passwordRepeat')],
+      }
+    );
   }
 
   onSubmit() {
@@ -66,13 +75,13 @@ export class MyAccountComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          // this.alertService.success('Update successful', {
-          //   keepAfterRouteChange: true,
-          // });
-          // this.router.navigate(['../login'], { relativeTo: this.route });
+          this.sharedService.openSnackBar(
+            'Tu cuenta se ha guardado correctamente'
+          );
+          this.loading = false;
         },
         error: (error) => {
-          // this.alertService.error(error);
+          this.sharedService.openSnackBar(error);
           this.loading = false;
         },
       });

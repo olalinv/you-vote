@@ -19,6 +19,10 @@ export class RegisterComponent implements OnInit {
   hidePassword = true;
   hidePasswordRepeat = true;
 
+  get f() {
+    return this.form.controls;
+  }
+
   constructor(
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<RegisterComponent>,
@@ -44,11 +48,6 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  // convenience getter for easy access to form fields
-  get f() {
-    return this.form.controls;
-  }
-
   onSubmit() {
     this.isSubmitted = true;
 
@@ -56,8 +55,6 @@ export class RegisterComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-
-    console.log('form', this.form.value);
 
     this.loading = true;
     this.prepareUser(this.form.value);

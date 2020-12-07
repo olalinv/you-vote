@@ -1,6 +1,22 @@
 <div class="survey-add">
   <h1>Crea tu encuesta</h1>
   <mat-vertical-stepper linear #stepper>
+    <mat-step [stepControl]="surveytypeForm">
+      <form [formGroup]="surveytypeForm">
+        <ng-template matStepLabel>Selecciona el tipo</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Tipo</mat-label>
+          <mat-select formControlName="surveytype" required>
+            <mat-option
+              *ngFor="let surveytype of surveytypes"
+              [value]="surveytype._id"
+            >
+              {{ surveytype.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </mat-step>
     <mat-step [stepControl]="questionForm">
       <form [formGroup]="questionForm">
         <ng-template matStepLabel>Haz una pregunta</ng-template>
@@ -12,19 +28,6 @@
             formControlName="question"
             required
           />
-        </mat-form-field>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="surveytypeForm">
-      <form [formGroup]="surveytypeForm">
-        <ng-template matStepLabel>Selecciona un tipo</ng-template>
-        <mat-form-field appearance="fill">
-          <mat-label>Tipo</mat-label>
-          <mat-select formControlName="surveytype" required>
-            <mat-option *ngFor="let surveytype of surveytypes" [value]="surveytype._id">
-              {{ surveytype.name }}
-            </mat-option>
-          </mat-select>
         </mat-form-field>
       </form>
     </mat-step>
