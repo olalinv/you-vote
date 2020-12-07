@@ -38,6 +38,19 @@ export class SurveysService {
     return survey;
   }
 
+  async findAllVotedByUserId(userId: string): Promise<Survey[]> {
+    const surveys = [];
+    const votes = await this.voteModel.find({ userId: userId }).exec();
+    await Promise.all(
+      votes.map(async (vote) => {
+        const survey = await this.surveyModel.findById(vote.surveyId);
+        survey.surveyResult = await this.findAllVotes(survey.id);
+        surveys.push(survey);
+      })
+    );
+    return surveys;
+  }
+
   async findAllVotes(id: string): Promise<any> {
     return this.voteModel.aggregate([
       {

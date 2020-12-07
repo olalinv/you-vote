@@ -83,16 +83,13 @@ export class SurveyDetailComponent implements OnInit {
         }
         this.getComments(surveyId);
       },
-      (error: string) => {
-        console.log(error);
-      }
+      (error: string) => {}
     );
   };
 
   getVote = (vote: IVote) => {
     this.voteService.getBySurveyAndUser(vote).subscribe(
       (response: IVote) => {
-        console.log('myVote', response);
         if (response) {
           this.vote = response;
           if (response.answerId) {
@@ -100,9 +97,7 @@ export class SurveyDetailComponent implements OnInit {
           }
         }
       },
-      (error: string) => {
-        console.log(error);
-      }
+      (error: string) => {}
     );
   };
 
@@ -111,9 +106,7 @@ export class SurveyDetailComponent implements OnInit {
       (response: IComment[]) => {
         this.survey.comments = response;
       },
-      (error: string) => {
-        console.log(error);
-      }
+      (error: string) => {}
     );
   };
 
@@ -140,7 +133,6 @@ export class SurveyDetailComponent implements OnInit {
   };
 
   saveVote = (answerId: number) => {
-    console.log('vote', this.vote);
     const vote: IVote = JSON.parse(JSON.stringify(this.vote));
     vote.answerId = answerId;
     this.voteService.save(vote).subscribe(
@@ -175,7 +167,6 @@ export class SurveyDetailComponent implements OnInit {
   };
 
   onCommentAddChange = (comment: ICreateCommentDto) => {
-    console.log(comment);
     comment.survey = this.surveyId;
     comment.user = this.user._id;
     this.saveComment(comment);

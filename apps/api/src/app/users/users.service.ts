@@ -23,7 +23,6 @@ export class UsersService {
     }
 
     const updatedUser = Object.assign(userToUpdate, user);
-    console.log(updatedUser);
     return updatedUser.save();
   }
 

@@ -4,7 +4,7 @@
     <div *ngFor="let survey of surveys; index as i" fxFlex="50">
       <mat-card class="mat-elevation-z0 survey" [ngClass]="mode">
         <a
-          [routerLink]="'survey/' + survey._id"
+          [routerLink]="'/survey/' + survey._id"
           fxLayout="row"
           fxLayoutAlign="start strech"
         >
@@ -42,7 +42,7 @@
     <div *ngFor="let survey of surveys; index as i">
       <mat-card class="mat-elevation-z0 survey" [ngClass]="mode">
         <a
-          [routerLink]="'survey/' + survey._id"
+          [routerLink]="'/survey/' + survey._id"
           fxLayout="row"
           fxLayoutAlign="start strech"
           fxLayoutGap="1rem"

@@ -17,6 +17,7 @@ import { AccountService, SurveyService } from '@app/_services';
 export class MySurveysComponent implements OnInit {
   private user: IUser;
   public surveysCreatedByMe: ISurvey[];
+  public surveysVotedByMe: ISurvey[];
 
   constructor(
     private accountService: AccountService,
@@ -33,13 +34,13 @@ export class MySurveysComponent implements OnInit {
       user: this.user._id,
     };
     this.getSurveysCreatedByMe(surveyListConfig);
+    this.getSurveysVotedByMe(this.user._id);
   }
 
   getSurveysCreatedByMe = (surveyListConfig: ISurveyListConfig) => {
     this.surveyService.query(surveyListConfig).subscribe(
       (response: ISurvey[]) => {
         this.surveysCreatedByMe = response;
-        console.log('userSurveys', this.surveysCreatedByMe);
         this.surveysCreatedByMe.forEach((survey: ISurvey) => {
           if (survey.surveyResult && survey.surveyResult[0]) {
             survey.surveyResult[0].answers = this.getSurveyAnswers(
@@ -55,9 +56,30 @@ export class MySurveysComponent implements OnInit {
           }
         });
       },
-      (error: string) => {
-        console.log(error);
-      }
+      (error: string) => {}
+    );
+  };
+
+  getSurveysVotedByMe = (userId: string) => {
+    this.surveyService.getAllVotedByUser(userId).subscribe(
+      (response: ISurvey[]) => {
+        this.surveysVotedByMe = response;
+        this.surveysVotedByMe.forEach((survey: ISurvey) => {
+          if (survey.surveyResult && survey.surveyResult[0]) {
+            survey.surveyResult[0].answers = this.getSurveyAnswers(
+              survey.surveytype,
+              survey.surveyResult[0]
+            );
+          } else {
+            const surveyResult: ISurveyResult = {
+              answers: survey.surveytype.answers,
+              total: 0,
+            };
+            survey.surveyResult.push(surveyResult);
+          }
+        });
+      },
+      (error: string) => {}
     );
   };
 

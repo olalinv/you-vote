@@ -37,7 +37,6 @@ export class HomeComponent implements OnInit {
   getSurveys = () => {
     this.surveyService.query().subscribe(
       (response: ISurvey[]) => {
-        console.log(response);
         this.surveys = response;
         this.surveys.forEach((survey: ISurvey) => {
           if (survey.surveyResult && survey.surveyResult[0]) {
@@ -54,9 +53,7 @@ export class HomeComponent implements OnInit {
           }
         });
       },
-      (error: string) => {
-        console.log(error);
-      }
+      (error: string) => {}
     );
   };
 

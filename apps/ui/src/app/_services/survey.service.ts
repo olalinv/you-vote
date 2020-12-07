@@ -32,6 +32,13 @@ export class SurveyService {
     );
   };
 
+  getAllVotedByUser = (userId: string): Observable<ISurvey[]> => {
+    return this.apiService.get(
+      `${this.apiUrl}/votedby/${userId}`,
+      new HttpParams({ fromObject: {} })
+    );
+  };
+
   save = (survey: ICreateSurveyDto): Observable<ISurvey> => {
     if (survey._id) {
       return this.apiService.put(`${this.apiUrl}/${survey._id}`, survey);

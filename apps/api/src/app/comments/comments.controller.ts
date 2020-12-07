@@ -1,14 +1,8 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CommentsService } from './comments.service';
 import { Comment } from './schemas/comment.schema';
 import { CreateCommentDto } from './dto/create-comment.dto';
-import { Types } from 'mongoose';
 
 @ApiBearerAuth()
 @ApiTags('comments')
@@ -24,9 +18,9 @@ export class CommentsController {
 
   @Get()
   async findAll(@Query() query): Promise<Comment[]> {
-    for (const queryKey of Object.keys(query)) {
-      console.log(`${queryKey}: ${query[queryKey]}`);
-    }
+    // for (const key of Object.keys(query)) {
+    //   console.log(`${key}: ${query[key]}`);
+    // }
     return this.commentsService.findAll(query);
   }
 }

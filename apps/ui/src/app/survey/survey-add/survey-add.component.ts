@@ -73,9 +73,7 @@ export class SurveyAddComponent implements OnInit {
       (response: ISurveyType[]) => {
         this.surveytypes = response;
       },
-      (error: string) => {
-        console.log(error);
-      }
+      (error: string) => {}
     );
   };
 
@@ -84,9 +82,7 @@ export class SurveyAddComponent implements OnInit {
       (response: ICategory[]) => {
         this.categories = response;
       },
-      (error: string) => {
-        console.log(error);
-      }
+      (error: string) => {}
     );
   };
 
@@ -95,20 +91,14 @@ export class SurveyAddComponent implements OnInit {
       (response: IImage[]) => {
         this.images = response;
       },
-      (error: string) => {
-        console.log(error);
-      }
+      (error: string) => {}
     );
   };
 
   saveSurvey = (survey: ICreateSurveyDto) => {
     this.surveyService.save(survey).subscribe(
-      (response: ISurvey) => {
-        console.log(response);
-      },
-      (error: string) => {
-        console.log(error);
-      }
+      (response: ISurvey) => {},
+      (error: string) => {}
     );
   };
 
