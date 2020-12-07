@@ -28,8 +28,9 @@
               placeholder="email@ejemplo.com"
             />
             <mat-icon matSuffix>email</mat-icon>
-            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="isSubmitted && f.email.errors" class="invalid-feedback">
               <div *ngIf="f.email.errors.required">Campo necesario</div>
+              <div *ngIf="f.email.errors.email">Formato incorrecto</div>
             </div>
           </mat-form-field>
         </div>
@@ -42,6 +43,7 @@
               formControlName="password"
             />
             <button
+              type="button"
               mat-icon-button
               matSuffix
               (click)="hidePassword = !hidePassword"
@@ -53,16 +55,16 @@
               }}</mat-icon>
             </button>
             <div
-              *ngIf="submitted && f.password.errors"
+              *ngIf="isSubmitted && f.password.errors"
               class="invalid-feedback"
             >
               <div *ngIf="f.password.errors.required">Campo necesario</div>
             </div>
           </mat-form-field>
         </div>
-        <button [disabled]="loading" mat-raised-button color="primary">
+        <button [disabled]="isLoading" mat-raised-button color="primary">
           <span
-            *ngIf="loading"
+            *ngIf="isLoading"
             class="spinner-border spinner-border-sm mr-1"
           ></span>
           Entrar

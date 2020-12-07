@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IComment } from '@api-interfaces';
+import { IComment, ICreateCommentDto } from '@api-interfaces';
 import { environment } from '@environments/environment';
 import { ApiService } from './api.service';
 
@@ -16,7 +16,7 @@ export class CommentService {
     return this.apiService.get(`${this.apiUrl}?survey=${surveyId}`);
   };
 
-  save = (comment: IComment): Observable<IComment> => {
+  save = (comment: ICreateCommentDto): Observable<IComment> => {
     if (comment._id) {
       return this.apiService.put(`${this.apiUrl}/${comment._id}`, comment);
     } else {

@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ISurvey, ISurveyListConfig, IUser } from '@api-interfaces';
+import {
+  IAnswer,
+  ISurvey,
+  ISurveyListConfig,
+  ISurveyResult,
+  ISurveyType,
+  IUser,
+} from '@api-interfaces';
 import { AccountService, SurveyService } from '@app/_services';
 
 @Component({
@@ -14,26 +21,65 @@ export class MySurveysComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private surveyService: SurveyService
-  ) {
-    this.user = this.accountService.userValue;
-  }
+  ) {}
 
   ngOnInit(): void {
-    this.getSurveys();
+    // Subscriptions
+    this.accountService.user.subscribe((user: IUser) => {
+      this.user = user;
+    });
+    // Surveys
+    const surveyListConfig: ISurveyListConfig = {
+      user: this.user._id,
+    };
+    this.getSurveysCreatedByMe(surveyListConfig);
   }
 
-  getSurveys = () => {
-    const surveyListConfig: ISurveyListConfig = {
-      user: this.user ? this.user._id : null,
-    };
+  getSurveysCreatedByMe = (surveyListConfig: ISurveyListConfig) => {
     this.surveyService.query(surveyListConfig).subscribe(
       (response: ISurvey[]) => {
         this.surveysCreatedByMe = response;
         console.log('userSurveys', this.surveysCreatedByMe);
+        this.surveysCreatedByMe.forEach((survey: ISurvey) => {
+          if (survey.surveyResult && survey.surveyResult[0]) {
+            survey.surveyResult[0].answers = this.getSurveyAnswers(
+              survey.surveytype,
+              survey.surveyResult[0]
+            );
+          } else {
+            const surveyResult: ISurveyResult = {
+              answers: survey.surveytype.answers,
+              total: 0,
+            };
+            survey.surveyResult.push(surveyResult);
+          }
+        });
       },
       (error: string) => {
         console.log(error);
       }
     );
+  };
+
+  getSurveyAnswers = (surveyType: ISurveyType, surveyResult: ISurveyResult) => {
+    const surveyAnswers: IAnswer[] = [];
+    let totalCount = 0;
+    surveyResult.answers.forEach((answer) => {
+      totalCount += answer.count;
+    });
+    surveyType.answers.forEach((answer) => {
+      const resultAnswer = surveyResult.answers.filter((item) => {
+        return item._id === answer._id;
+      });
+      if (resultAnswer.length > 0) {
+        // Add percent
+        resultAnswer[0].percent = (resultAnswer[0].count / totalCount) * 100;
+        const mergedAnswer = Object.assign(answer, resultAnswer[0]);
+        surveyAnswers.push(mergedAnswer);
+      } else {
+        surveyAnswers.push(answer);
+      }
+    });
+    return surveyAnswers;
   };
 }

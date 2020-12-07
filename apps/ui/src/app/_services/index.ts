@@ -1,5 +1,4 @@
 export * from './account.service';
-export * from './alert.service';
 export * from './category.service';
 export * from './comment.service';
 export * from './image.service';

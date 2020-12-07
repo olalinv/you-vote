@@ -28,6 +28,7 @@
       background-color: var(--color-primary);
       color: var(--color-white);
       flex-shrink: 0;
+      margin-top: 2rem;
     }
     .main-header {
       background-color: #e5e9f2;
@@ -85,16 +86,21 @@
         margin-bottom: 0.5rem;
         margin-top: -1.5rem;
         .mat-button {
-          background-color: var(--color-primary);
-          border-radius: 0;
-          color: var(--color-white);
-          font-size: 1em;
-          min-width: 9.7rem;
-          text-align: left;
-          text-transform: uppercase;
-          .mat-icon {
-            height: 28px;
-            margin-right: 0.5rem;
+          &.mat-button-icon {
+            text-transform: lowercase;
+          }
+          &.mat-menu-trigger {
+            background-color: var(--color-primary);
+            border-radius: 0;
+            color: var(--color-white);
+            font-size: 1em;
+            min-width: 9.7rem;
+            text-align: left;
+            text-transform: uppercase;
+            .mat-icon {
+              height: 28px;
+              margin-right: 0.5rem;
+            }
           }
         }
       }

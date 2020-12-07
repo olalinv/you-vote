@@ -27,7 +27,9 @@ export class CommentAddComponent implements OnInit {
   public addCommentForm: FormGroup;
   public isSubmitted = false;
 
-  get f() { return this.addCommentForm.controls; }
+  get f() {
+    return this.addCommentForm.controls;
+  }
 
   constructor(private ngZone: NgZone, private formBuilder: FormBuilder) {}
 

@@ -62,8 +62,8 @@ export class SurveysService {
       {
         $group: {
           _id: null,
-          total: { $sum: 1 },
           answers: { $addToSet: '$answer' },
+          total: { $sum: 1 },
         },
       },
       {

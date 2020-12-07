@@ -42,6 +42,11 @@ export class AccountService {
     this.router.navigate(['/']);
   }
 
+  reload() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+  }
+
   register(user: Partial<IUser>) {
     return this.http.post(`${environment.apiUrl}/users`, user);
   }

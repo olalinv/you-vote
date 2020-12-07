@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { first } from 'rxjs/operators';
-import { AccountService, AlertService } from '../../_services';
+import { AccountService, SharedService } from '../../_services';
 
 @Component({
   selector: 'you-vote-login',
@@ -11,21 +12,21 @@ import { AccountService, AlertService } from '../../_services';
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
-  loading = false;
-  submitted = false;
+  isLoading = false;
+  isSubmitted = false;
   hidePassword = true;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
+    private formBuilder: FormBuilder,
+    private dialogRef: MatDialogRef<LoginComponent>,
     private accountService: AccountService,
-    private alertService: AlertService
+    private sharedService: SharedService
   ) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
   }
@@ -36,30 +37,32 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
-
-    // reset alerts on submit
-    this.alertService.clear();
+    this.isSubmitted = true;
 
     // stop here if form is invalid
     if (this.form.invalid) {
       return;
     }
 
-    this.loading = true;
+    this.isLoading = true;
     this.accountService
       .login(this.f.email.value, this.f.password.value)
       .pipe(first())
       .subscribe({
         next: () => {
-          // get return url from query parameters or default to home page
-          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-          this.router.navigateByUrl(returnUrl);
+          this.dialogRef.close();
+          this.sharedService.openSnackBar('Iniciaste sesión correctamente');
+          this.reload();
         },
         error: (error) => {
-          this.alertService.error(error);
-          this.loading = false;
+          this.sharedService.openSnackBar(error);
+          this.isLoading = false;
         },
       });
+  }
+
+  reload() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
   }
 }

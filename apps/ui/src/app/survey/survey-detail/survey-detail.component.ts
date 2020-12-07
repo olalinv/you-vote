@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import {
   IAnswer,
   IComment,
+  ICreateCommentDto,
   ISurvey,
   ISurveyResult,
   ISurveyType,
@@ -46,11 +47,17 @@ export class SurveyDetailComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       this.surveyId = params.get('surveyId');
     });
-    // User
-    this.user = this.accountService.userValue;
+    // Subscriptions
+    this.accountService.user.subscribe((user: IUser) => {
+      this.user = user;
+    });
   }
 
   ngOnInit(): void {
+    this.initSurveyDetail();
+  }
+
+  initSurveyDetail(): void {
     if (this.user) {
       // Vote
       this.vote = {
@@ -110,23 +117,12 @@ export class SurveyDetailComponent implements OnInit {
     );
   };
 
-  saveVote = (answerId: number) => {
-    console.log('vote', this.vote);
-    const vote: IVote = JSON.parse(JSON.stringify(this.vote));
-    vote.answerId = answerId;
-    this.voteService.save(vote).subscribe(
-      (response: IVote) => {
-        console.log(response);
-      },
-      (error: string) => {
-        console.log(error);
-      }
-    );
-  };
-
   getSurveyAnswers = (surveyType: ISurveyType, surveyResult: ISurveyResult) => {
     const surveyAnswers: IAnswer[] = [];
-    const totalCount = surveyResult.total;
+    let totalCount = 0;
+    surveyResult.answers.forEach((answer) => {
+      totalCount += answer.count;
+    });
     surveyType.answers.forEach((answer) => {
       const resultAnswer = surveyResult.answers.filter((item) => {
         return item._id === answer._id;
@@ -143,6 +139,33 @@ export class SurveyDetailComponent implements OnInit {
     return surveyAnswers;
   };
 
+  saveVote = (answerId: number) => {
+    console.log('vote', this.vote);
+    const vote: IVote = JSON.parse(JSON.stringify(this.vote));
+    vote.answerId = answerId;
+    this.voteService.save(vote).subscribe(
+      (response: IVote) => {
+        this.initSurveyDetail();
+        this.sharedService.openSnackBar('Se guardó el voto');
+      },
+      (error: string) => {
+        this.sharedService.openSnackBar(error);
+      }
+    );
+  };
+
+  saveComment = (comment: ICreateCommentDto) => {
+    this.commentService.save(comment).subscribe(
+      (response: IComment) => {
+        this.getSurvey(this.surveyId);
+        this.sharedService.openSnackBar('Se guardó el comentario');
+      },
+      (error: string) => {
+        this.sharedService.openSnackBar(error);
+      }
+    );
+  };
+
   openDialog(component: string): void {
     this.sharedService.openDialog(component);
   }
@@ -151,7 +174,10 @@ export class SurveyDetailComponent implements OnInit {
     this.saveVote($event.value);
   };
 
-  onCommentAddChange = (event: IComment) => {
-    console.log(event);
+  onCommentAddChange = (comment: ICreateCommentDto) => {
+    console.log(comment);
+    comment.survey = this.surveyId;
+    comment.user = this.user._id;
+    this.saveComment(comment);
   };
 }

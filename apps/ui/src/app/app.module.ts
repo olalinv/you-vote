@@ -11,17 +11,14 @@ import { AppComponent } from './app.component';
 import { MainLayoutComponent } from './_components/main-layout/main-layout.component';
 import { LoginComponent } from './_components/login/login.component';
 import { RegisterComponent } from './_components/register/register.component';
-import { AlertComponent } from './_components/alert/alert.component';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-import { fakeBackendProvider } from './_helpers';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainLayoutComponent,
     LoginComponent,
-    RegisterComponent,
-    AlertComponent,
+    RegisterComponent
   ],
   imports: [
     HttpClientModule,

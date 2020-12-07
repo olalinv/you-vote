@@ -23,13 +23,13 @@ export class HomeComponent implements OnInit {
     private accountService: AccountService,
     private surveyService: SurveyService,
     private sharedService: SharedService
-  ) {
-    // User
-    this.user = this.accountService.userValue;
-    console.log('user', this.user);
-  }
+  ) {}
 
   ngOnInit(): void {
+    // Subscriptions
+    this.accountService.user.subscribe((user: IUser) => {
+      this.user = user;
+    });
     // Surveys
     this.getSurveys();
   }
@@ -62,7 +62,10 @@ export class HomeComponent implements OnInit {
 
   getSurveyAnswers = (surveyType: ISurveyType, surveyResult: ISurveyResult) => {
     const surveyAnswers: IAnswer[] = [];
-    const totalCount = surveyResult.total;
+    let totalCount = 0;
+    surveyResult.answers.forEach((answer) => {
+      totalCount += answer.count;
+    });
     surveyType.answers.forEach((answer) => {
       const resultAnswer = surveyResult.answers.filter((item) => {
         return item._id === answer._id;
@@ -83,7 +86,7 @@ export class HomeComponent implements OnInit {
     if (this.user) {
       this.router.navigateByUrl('/survey/add');
     } else {
-      this.sharedService.openDialog('login');
+      this.sharedService.openDialog('register');
     }
   }
 }

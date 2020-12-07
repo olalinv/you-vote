@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { IUser } from '@api-interfaces';
-import { AccountService, AlertService } from '@app/_services';
 import { first } from 'rxjs/operators';
+import { IUser } from '@api-interfaces';
+import { AccountService } from '@app/_services';
 
 @Component({
   selector: 'you-vote-my-account',
@@ -20,10 +19,7 @@ export class MyAccountComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private accountService: AccountService,
-    private alertService: AlertService
+    private accountService: AccountService
   ) {
     this.user = this.accountService.userValue;
   }
@@ -59,9 +55,6 @@ export class MyAccountComponent implements OnInit {
   onSubmit() {
     this.isSubmitted = true;
 
-    // reset alerts on submit
-    this.alertService.clear();
-
     // stop here if form is invalid
     if (this.form.invalid) {
       return;
@@ -73,13 +66,13 @@ export class MyAccountComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          this.alertService.success('Update successful', {
-            keepAfterRouteChange: true,
-          });
+          // this.alertService.success('Update successful', {
+          //   keepAfterRouteChange: true,
+          // });
           // this.router.navigate(['../login'], { relativeTo: this.route });
         },
         error: (error) => {
-          this.alertService.error(error);
+          // this.alertService.error(error);
           this.loading = false;
         },
       });

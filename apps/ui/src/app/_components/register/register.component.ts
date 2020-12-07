@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { first } from 'rxjs/operators';
-import { AccountService, AlertService } from '../../_services';
+import { MustMatchValidator } from '../../_validators/must-match.validator';
 import { IUser } from '@api-interfaces';
+import { AccountService, SharedService } from '@app/_services';
 
 @Component({
   selector: 'you-vote-register',
@@ -14,29 +15,33 @@ export class RegisterComponent implements OnInit {
   private user: Partial<IUser> = {};
   form: FormGroup;
   loading = false;
-  submitted = false;
+  isSubmitted = false;
   hidePassword = true;
   hidePasswordRepeat = true;
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
+    private dialogRef: MatDialogRef<RegisterComponent>,
     private accountService: AccountService,
-    private alertService: AlertService
+    private sharedService: SharedService
   ) {}
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
-      username: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      passwordRepeat: ['', [Validators.required, Validators.minLength(8)]],
-      yearBirth: [''],
-      gender: [''],
-      provinceResidence: [''],
-      countryOrigin: [''],
-    });
+    this.form = this.formBuilder.group(
+      {
+        username: ['', Validators.required],
+        email: ['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        passwordRepeat: ['', [Validators.required, Validators.minLength(8)]],
+        yearBirth: [''],
+        gender: [''],
+        provinceResidence: [''],
+        countryOrigin: [''],
+      },
+      {
+        validators: [MustMatchValidator('password', 'passwordRepeat')],
+      }
+    );
   }
 
   // convenience getter for easy access to form fields
@@ -45,10 +50,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
-
-    // reset alerts on submit
-    this.alertService.clear();
+    this.isSubmitted = true;
 
     // stop here if form is invalid
     if (this.form.invalid) {
@@ -64,13 +66,13 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          this.alertService.success('Registration successful', {
-            keepAfterRouteChange: true,
-          });
-          // this.router.navigate(['../login'], { relativeTo: this.route });
+          this.dialogRef.close('login');
+          this.sharedService.openSnackBar(
+            'Tu cuenta se ha creado. Inicia sesión'
+          );
         },
         error: (error) => {
-          this.alertService.error(error);
+          this.sharedService.openSnackBar(error);
           this.loading = false;
         },
       });
@@ -79,5 +81,5 @@ export class RegisterComponent implements OnInit {
   prepareUser = (values: object) => {
     delete values['passwordRepeat'];
     Object.assign(this.user, values);
-  }
+  };
 }

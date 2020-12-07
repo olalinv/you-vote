@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { IUser } from '@api-interfaces';
 import { AccountService, SharedService } from '@app/_services';
 import { LoginComponent } from '../login/login.component';
@@ -16,25 +18,33 @@ export class MainLayoutComponent implements OnInit {
   dialogRef: MatDialogRef<any, any>;
 
   constructor(
+    public router: Router,
     public dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private accountService: AccountService,
     private sharedService: SharedService
-  ) {
-    this.user = this.accountService.userValue;
-    console.log(this.user);
-  }
+  ) {}
 
   ngOnInit(): void {
     // Subscriptions
+    this.accountService.user.subscribe((user: IUser) => {
+      this.user = user;
+    });
     this.sharedService.dialog$.subscribe((component: string) => {
       if (component) {
         this.openDialog(component);
+      }
+    });
+    this.sharedService.snackBar$.subscribe((message: string) => {
+      if (message) {
+        this.openSnackBar(message);
       }
     });
   }
 
   logOut(): void {
     this.accountService.logout();
+    this.openSnackBar('Cerraste sesión');
   }
 
   openDialog(component: string) {
@@ -52,6 +62,12 @@ export class MainLayoutComponent implements OnInit {
       if (result && typeof result === 'string') {
         this.openDialog(result);
       }
+    });
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 2000,
     });
   }
 }
