@@ -1,0 +1,55 @@
+<div class="main-layout">
+  <header class="main-header">
+    <div
+      *ngIf="user"
+      fxLayout="row"
+      fxLayoutAlign="end start"
+      class="user-menu"
+    >
+      <button mat-button [matMenuTriggerFor]="userMenu">
+        <mat-icon>menu</mat-icon>
+        Menu
+      </button>
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item routerLink="survey/add">
+          Crear una encuesta
+        </button>
+        <button mat-menu-item routerLink="account/my-surveys">
+          Mis encuestas
+        </button>
+        <button mat-menu-item routerLink="account/me">Mi cuenta</button>
+        <button mat-menu-item (click)="logOut()">Salir</button>
+      </mat-menu>
+      <button
+        mat-button
+        color="primary"
+        (click)="logOut()"
+        class="mat-button-icon"
+      >
+        {{ user.username }} <mat-icon>login</mat-icon>
+      </button>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <a routerLink="/" class="logo">
+        <span class="logo-icon material-icons">bar_chart</span>
+        <span class="logo-text">YouVote</span>
+      </a>
+      <nav class="main-menu">
+        <ul>
+          <li><a routerLink="/">Inicio</a></li>
+          <li><a routerLink="about">Acerca de</a></li>
+          <li>
+            <a *ngIf="!user" (click)="openDialog('login')">Acceder</a>
+            <a *ngIf="user" routerLink="survey/add">Añadir encuesta</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+  <footer class="main-footer">
+    ©YouVote, {{ currentDate | date: 'yyyy' }}
+  </footer>
+</div>

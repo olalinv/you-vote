@@ -1,0 +1,15 @@
+<div class="home">
+  <div class="jumbotron full-width">
+    <span class="jumbotron-subtitle"
+      >Pregunta, responde, debate, participa</span
+    >
+    <h1 class="jumbotron-title">
+      Tu opinión importa<br />Inicia ahora una encuesta
+    </h1>
+    <a class="btn btn-primary" (click)="checkUserStatus()" role="button"
+      >Iniciar</a
+    >
+  </div>
+  <h2>Últimas encuestas</h2>
+  <you-vote-survey-list [surveys]="surveys"></you-vote-survey-list>
+</div>

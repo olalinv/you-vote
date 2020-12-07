@@ -1,0 +1,34 @@
+<div class="comment-add">
+  <form
+    [formGroup]="addCommentForm"
+    #formDirective="ngForm"
+    (ngSubmit)="onSubmitAddCommentForm()"
+    novalidate
+  >
+    <div fxLayout="column">
+      <mat-form-field>
+        <textarea
+          matInput
+          formControlName="content"
+          cdkTextareaAutosize
+          #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="10"
+          placeholder="Mensaje..."
+          #mensaje
+          maxlength="255"
+          required
+        ></textarea>
+        <div *ngIf="isSubmitted && f.content.errors" class="invalid-feedback">
+          <div *ngIf="f.content.errors.required">Campo necesario</div>
+        </div>
+      </mat-form-field>
+    </div>
+    <br />
+    <div fxLayout.gt-sm="row" fxLayoutAlign.gt-xs="end center">
+      <button mat-raised-button class="button-create">
+        Publicar
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,57 @@
+/*------------------------------------------------------------------
+[Register]
+-------------------------------------------------------------------*/
+
+:host {
+  // ::ng-deep {
+  .register {
+    .mat-card {
+      padding: 1rem 2rem;
+      @media (min-width: 768px) {
+        padding: 3rem 6rem;
+      }
+      .mat-card-header {
+        text-align: center;
+        .mat-card-title {
+          font-size: var(--font-size-h1);
+          font-weight: 700;
+          margin: 1rem 0 2rem;
+        }
+        .mat-card-subtitle {
+          color: var(--color-black-500);
+          font-size: 0.9em;
+          line-height: 1.3em;
+          margin: 1rem auto;
+        }
+      }
+      .mat-card-content {
+        form {
+          .border-inside {
+            color: var(--color-black-500);
+            margin: 1rem 0 2rem;
+            position: relative;
+            text-align: center;
+            span {
+              background-color: var(--color-white);
+              padding: 0 2rem;
+              position: relative;
+            }
+            &:before {
+              border-top: 1px solid;
+              content: '';
+              left: 0;
+              position: absolute;
+              right: 0;
+              top: 12px;
+            }
+          }
+          .mat-raised-button {
+            margin: 1rem 0;
+            min-width: 18.5rem;
+          }
+        }
+      }
+    }
+  }
+  // }
+}

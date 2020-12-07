@@ -1,0 +1,10 @@
+<div class="comment-list">
+  <div class="comment" *ngFor="let comment of comments; last as last">
+    <div class="meta" fxLayout="row">
+      <mat-icon>account_circle</mat-icon>
+      {{ comment?.user?.username }} --
+      {{ comment.createdAt | date: 'dd/MM/yyyy HH:mm' }}
+    </div>
+    <div class="body">{{ comment.content }}</div>
+  </div>
+</div>

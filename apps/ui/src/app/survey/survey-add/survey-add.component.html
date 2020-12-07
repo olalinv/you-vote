@@ -1,0 +1,74 @@
+<div class="survey-add">
+  <h1>Crea tu encuesta</h1>
+  <mat-vertical-stepper linear #stepper>
+    <mat-step [stepControl]="surveytypeForm">
+      <form [formGroup]="surveytypeForm">
+        <ng-template matStepLabel>Selecciona el tipo</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Tipo</mat-label>
+          <mat-select formControlName="surveytype" required>
+            <mat-option
+              *ngFor="let surveytype of surveytypes"
+              [value]="surveytype._id"
+            >
+              {{ surveytype.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="questionForm">
+      <form [formGroup]="questionForm">
+        <ng-template matStepLabel>Haz una pregunta</ng-template>
+        <mat-form-field>
+          <mat-label>Pregunta</mat-label>
+          <input
+            matInput
+            placeholder="Introduce aquí la pregunta sobre la que deseas realizar la encuesta"
+            formControlName="question"
+            required
+          />
+        </mat-form-field>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="categoryForm">
+      <form [formGroup]="categoryForm">
+        <ng-template matStepLabel>Selecciona una categoría</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Categoría</mat-label>
+          <mat-select formControlName="category" required>
+            <mat-option
+              *ngFor="let category of categories"
+              [value]="category._id"
+            >
+              {{ category.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="imageForm">
+      <form [formGroup]="imageForm">
+        <ng-template matStepLabel>Selecciona una imagen</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Imagen</mat-label>
+          <mat-select formControlName="image" required>
+            <mat-option
+              *ngFor="let image of images"
+              [value]="image._id"
+              class="mat-option-image"
+            >
+              <img src="assets/img/{{ image.name }}" />
+              {{ image.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </mat-step>
+  </mat-vertical-stepper>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <button (click)="onSubmit()" mat-raised-button color="primary">
+      Publicar
+    </button>
+  </div>
+</div>

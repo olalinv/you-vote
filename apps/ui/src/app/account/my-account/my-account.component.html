@@ -1,0 +1,156 @@
+<div class="my-account">
+  <h1>Mi cuenta</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h2>Datos de login</h2>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxFlex="45" class="field-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre de usuario</mat-label>
+          <input
+            matInput
+            formControlName="username"
+            required
+            placeholder="Alias"
+          />
+          <div
+            *ngIf="isSubmitted && f.username.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.username.errors.required">Campo necesario</div>
+          </div>
+        </mat-form-field>
+      </div>
+      <div fxFlex="45" class="field-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Contraseña</mat-label>
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            formControlName="password"
+          />
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            (click)="hidePassword = !hidePassword"
+            [attr.aria-label]="'Ocultar contraseña'"
+            [attr.aria-pressed]="hidePassword"
+          >
+            <mat-icon>{{
+              hidePassword ? 'visibility_off' : 'visibility'
+            }}</mat-icon>
+          </button>
+          <div
+            *ngIf="isSubmitted && f.password.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.password.errors.required">Campo necesario</div>
+            <div *ngIf="f.password.errors.minlength">
+              La contraseña debe tener al menos 8 caracteres
+            </div>
+          </div>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxFlex="45" class="field-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            formControlName="email"
+            required
+            placeholder="email@ejemplo.com"
+          />
+          <div *ngIf="isSubmitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Campo necesario</div>
+          </div>
+        </mat-form-field>
+      </div>
+      <div fxFlex="45" class="field-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Repite contraseña</mat-label>
+          <input
+            matInput
+            [type]="hidePasswordRepeat ? 'password' : 'text'"
+            formControlName="passwordRepeat"
+          />
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            (click)="hidePasswordRepeat = !hidePasswordRepeat"
+            [attr.aria-label]="'Ocultar contraseña'"
+            [attr.aria-pressed]="hidePasswordRepeat"
+          >
+            <mat-icon>{{
+              hidePasswordRepeat ? 'visibility_off' : 'visibility'
+            }}</mat-icon>
+          </button>
+          <div
+            *ngIf="isSubmitted && f.passwordRepeat.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.passwordRepeat.errors.required">
+              Campo necesario
+            </div>
+            <div *ngIf="f.passwordRepeat.errors.mustMatch">
+              La contraseña no coincide
+            </div>
+          </div>
+        </mat-form-field>
+      </div>
+    </div>
+    <hr />
+    <h2>Datos de perfil</h2>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxFlex="45" class="field-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Año de nacimiento</mat-label>
+          <input
+            matInput
+            formControlName="yearBirth"
+            placeholder="Año de nacimiento"
+          />
+        </mat-form-field>
+      </div>
+      <div fxFlex="45" class="field-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Género</mat-label>
+          <input matInput formControlName="gender" placeholder="Género" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxFlex="45" class="field-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Provincia de residencia</mat-label>
+          <input
+            matInput
+            formControlName="provinceResidence"
+            placeholder="Provincia de residencia"
+          />
+        </mat-form-field>
+      </div>
+      <div fxFlex="45" class="field-container">
+        <mat-form-field appearance="fill">
+          <mat-label>País de origen</mat-label>
+          <input
+            matInput
+            formControlName="countryOrigin"
+            placeholder="País de origen"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <button [disabled]="loading" mat-raised-button color="primary">
+        <span
+          *ngIf="loading"
+          class="spinner-border spinner-border-sm mr-1"
+        ></span>
+        Guardar
+      </button>
+    </div>
+  </form>
+</div>

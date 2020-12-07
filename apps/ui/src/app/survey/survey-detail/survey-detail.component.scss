@@ -1,0 +1,47 @@
+/*------------------------------------------------------------------
+[SurveyDetail]
+-------------------------------------------------------------------*/
+
+:host {
+  // ::ng-deep {
+  .survey-detail {
+    h2 {
+      margin: 3rem 0 2rem;
+    }
+    .survey-result {
+      background-color: var(--color-black-50);
+      margin: 3rem 0;
+      img {
+        min-height: 100%;
+        object-fit: cover;
+      }
+    }
+    .survey-vote {
+      margin: 1rem 0;
+      .vote-status {
+        color: var(--color-black-700);
+        font-size: 0.85em;
+        text-align: center;
+      }
+      .vote-options {
+        font-size: 1.15em;
+      }
+    }
+    .votes {
+      .vote {
+        span {
+          color: var(--color-black-500);
+          display: block;
+          font-size: 0.8em;
+        }
+        .mat-icon {
+          font-size: 2.5em;
+        }
+        .ns-nc {
+          font-size: 1.25em;
+        }
+      }
+    }
+  }
+  // }
+}
