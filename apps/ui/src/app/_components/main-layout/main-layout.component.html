@@ -39,8 +39,12 @@
           <li><a routerLink="/">Inicio</a></li>
           <li><a routerLink="about">Acerca de</a></li>
           <li>
-            <a *ngIf="!user" (click)="openDialog('login')">Acceder</a>
-            <a *ngIf="user" routerLink="survey/add">Añadir encuesta</a>
+            <a *ngIf="!user; else add_survey" (click)="openDialog('login')"
+              >Acceder</a
+            >
+            <ng-template #add_survey>
+              <a *ngIf="user" routerLink="survey/add">Añadir encuesta</a>
+            </ng-template>
           </li>
         </ul>
       </nav>
