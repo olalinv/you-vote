@@ -52,17 +52,11 @@ export class LoginComponent implements OnInit {
         next: () => {
           this.dialogRef.close();
           this.sharedService.openSnackBar('Iniciaste sesión correctamente');
-          this.reload();
         },
         error: (error) => {
           this.sharedService.openSnackBar(error);
           this.isLoading = false;
         },
       });
-  }
-
-  reload() {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
   }
 }

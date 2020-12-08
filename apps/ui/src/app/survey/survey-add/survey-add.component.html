@@ -67,7 +67,12 @@
     </mat-step>
   </mat-vertical-stepper>
   <div fxLayout="row" fxLayoutAlign="center center">
-    <button (click)="onSubmit()" mat-raised-button color="primary">
+    <button
+      (click)="onSubmit()"
+      [disabled]="isSaved"
+      mat-raised-button
+      color="primary"
+    >
       Publicar
     </button>
   </div>

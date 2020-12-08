@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import {
   ICategory,
   ICreateSurveyDto,
@@ -12,6 +13,7 @@ import {
   AccountService,
   CategoryService,
   ImageService,
+  SharedService,
   SurveyService,
   SurveytypeService,
 } from '@app/_services';
@@ -33,17 +35,22 @@ export class SurveyAddComponent implements OnInit {
   categoryForm: FormGroup;
   imageForm: FormGroup;
   isSubmitted = false;
+  isSaved = false;
 
   constructor(
+    private router: Router,
     private accountService: AccountService,
     private categoryService: CategoryService,
     private imageService: ImageService,
     private surveyService: SurveyService,
     private surveytypeService: SurveytypeService,
+    private sharedService: SharedService,
     private _formBuilder: FormBuilder
   ) {
-    // User
-    this.user = this.accountService.userValue;
+    // Subscriptions
+    this.accountService.user.subscribe((user: IUser) => {
+      this.user = user;
+    });
   }
 
   ngOnInit() {
@@ -97,8 +104,14 @@ export class SurveyAddComponent implements OnInit {
 
   saveSurvey = (survey: ICreateSurveyDto) => {
     this.surveyService.save(survey).subscribe(
-      (response: ISurvey) => {},
-      (error: string) => {}
+      (response: ISurvey) => {
+        this.isSaved = true;
+        this.sharedService.openSnackBar('Se guardó la encuesta');
+        this.router.navigateByUrl('/account/my-surveys');
+      },
+      (error: string) => {
+        this.sharedService.openSnackBar(error);
+      }
     );
   };
 
@@ -118,7 +131,7 @@ export class SurveyAddComponent implements OnInit {
     // form is valid
     this.prepareSurvey(
       this.questionForm.value.question,
-      this.surveytypeForm.value.question,
+      this.surveytypeForm.value.surveytype,
       this.categoryForm.value.category,
       this.imageForm.value.image
     );
