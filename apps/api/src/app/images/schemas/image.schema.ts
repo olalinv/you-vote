@@ -5,7 +5,7 @@ export type ImageDocument = Image & Document;
 
 @Schema()
 export class Image extends Document {
-  @Prop({ required: true, unique: true })
+  @Prop()
   _id: Number;
   
   @Prop({ required: true, unique: true })

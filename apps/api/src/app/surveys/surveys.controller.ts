@@ -37,14 +37,9 @@ export class SurveysController {
   }
 
   @Get('votedby/:userId')
-  async findAllVotedByUserId(@Param('userId') userId: string): Promise<Survey[]> {
+  async findAllVotedByUserId(
+    @Param('userId') userId: string
+  ): Promise<Survey[]> {
     return this.surveysService.findAllVotedByUserId(userId);
   }
-
-  // @Get(':userId')
-  // async findByUser(@Param('userId') userId: string): Promise<Survey[]> {
-  //   const user: User = new User();
-  //   user._id = userId;
-  //   return this.surveysService.findAllByUser(user);
-  // }
 }

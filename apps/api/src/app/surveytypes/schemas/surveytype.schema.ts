@@ -6,7 +6,7 @@ export type SurveyTypeDocument = SurveyType & Document;
 
 @Schema()
 export class SurveyType {
-  @Prop({ required: true, unique: true })
+  @Prop()
   _id: Number;
 
   @Prop({ required: true, unique: true })

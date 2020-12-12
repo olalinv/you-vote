@@ -29,7 +29,7 @@
     "start:fe": "ng serve ui",
     "start:be": "ng serve api",
     "dev": "concurrently -p=\"{name}\" -n=\"Angular,NestJS\" -c=\"green,blue\" \"npm run start:fe\" \"npm run start:be\"",
-    "start:prod": "node dist/main"
+    "start:prod": "node dist/apps/api/main"
   },
   "private": true,
   "dependencies": {
