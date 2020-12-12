@@ -41,13 +41,8 @@ export class VotesController {
     return this.votesService.findById(id);
   }
 
-  @Get(':surveyId/:userId')
+  @Get('survey/:surveyId/user/:userId')
   async findOneBySurveyAndUser(@Param() params): Promise<Vote> {
-    const { surveyId, userId } = params;
-    const query: Partial<Vote> = {
-      surveyId: surveyId,
-      userId: userId,
-    };
-    return this.votesService.findOneBySurveyAndUser(query);
+    return this.votesService.findOneBySurveyAndUser(params);
   }
 }

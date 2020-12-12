@@ -26,14 +26,9 @@ export class VoteService {
   };
 
   getBySurveyAndUser = (config: IVoteConfig = {}): Observable<IVote> => {
-    // Convert filters to URLSearchParams
-    const params = {};
-    Object.keys(config).forEach((key) => {
-      params[key] = config[key];
-    });
     return this.apiService.get(
-      `${this.apiUrl}/${config.surveyId}/${config.userId}`,
-      new HttpParams({ fromObject: params })
+      `${this.apiUrl}/survey/${config.surveyId}/user/${config.userId}`,
+      new HttpParams({ fromObject: {} })
     );
   };
 
