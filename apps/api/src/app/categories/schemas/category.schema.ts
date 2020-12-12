@@ -6,7 +6,7 @@ export type CategoryDocument = Category & Document;
 
 @Schema()
 export class Category extends Document {
-  @Prop({ required: true, unique: true })
+  @Prop()
   _id: Number;
 
   @Prop({ required: true, unique: true })

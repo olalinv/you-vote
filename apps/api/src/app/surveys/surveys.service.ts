@@ -28,10 +28,6 @@ export class SurveysService {
     return surveys;
   }
 
-  async findAllByUser(user: User): Promise<Survey[]> {
-    return this.surveyModel.find(user).exec();
-  }
-
   async findById(id: string): Promise<Survey> {
     const survey = await this.surveyModel.findById(id).exec();
     survey.surveyResult = await this.findAllVotes(id);

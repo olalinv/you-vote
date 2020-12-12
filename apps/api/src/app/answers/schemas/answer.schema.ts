@@ -5,7 +5,7 @@ export type AnswerDocument = Answer & Document;
 
 @Schema()
 export class Answer {
-  @Prop({ required: true, unique: true })
+  @Prop()
   _id: Number;
 
   @Prop({ required: true, unique: true })

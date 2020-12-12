@@ -5,6 +5,7 @@ import { Comment } from '../../comments/schemas/comment.schema';
 import { Image } from '../../images/schemas/image.schema';
 import { SurveyType } from '../../surveytypes/schemas/surveytype.schema';
 import { User } from '../../users/schemas/user.schema';
+import { SurveyResult } from './surveyresult.schema';
 
 export type SurveyDocument = Survey & Document;
 
@@ -49,7 +50,7 @@ export class Survey extends Document {
   user: Partial<User>;
 
   @Prop()
-  surveyResult: any;
+  surveyResult: SurveyResult;
 }
 
 export const SurveySchema = SchemaFactory.createForClass(Survey);
