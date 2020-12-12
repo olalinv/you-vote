@@ -35,4 +35,9 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @Get(':id')
+  async findById(@Param('id') id: string): Promise<User> {
+    return this.usersService.findById(id);
+  }
+
 }

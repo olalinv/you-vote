@@ -28,7 +28,9 @@ export class VotesService {
     return this.voteModel.findById(id).exec();
   }
 
-  async findOneBySurveyAndUser(query: Partial<Vote>): Promise<Vote> {
+  async findOneBySurveyAndUser(
+    query: (err: any, res: Vote) => void
+  ): Promise<Vote> {
     return this.voteModel.findOne(query).exec();
   }
 }

@@ -30,6 +30,10 @@ export class UsersService {
     return this.userModel.find().exec();
   }
 
+  async findById(id: string): Promise<User> {
+    return await this.userModel.findById(id).exec();
+  }
+
   async findOne({email, password}: LoginUserDto): Promise<User> {
     const user = await this.userModel.findOne({email});
     if (!user) {

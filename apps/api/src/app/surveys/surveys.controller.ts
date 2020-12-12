@@ -23,8 +23,6 @@ export class SurveysController {
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   async create(@Body() dto: CreateSurveyDto) {
-    // SurveyType is only 1 for now
-    // dto.surveytype = 1;
     await this.surveysService.create(dto);
   }
 
