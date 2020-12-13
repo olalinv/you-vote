@@ -1,13 +1,19 @@
 {
   "name": "you-vote",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
     "nx": "nx",
     "start": "ng serve",
+    "start:fe": "ng serve ui",
+    "start:be": "ng serve api",
+    "start:prod": "node dist/apps/api/main",
+    "dev": "concurrently -p=\"{name}\" -n=\"Angular,NestJS\" -c=\"green,blue\" \"npm run start:fe\" \"npm run start:be\"",
     "build": "ng build",
+    "build-be:prod": "ng build api --prod",
+    "build-fe:prod": "ng build ui --prod",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",
@@ -25,11 +31,7 @@
     "update": "ng update @nrwl/workspace",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
-    "help": "nx help",
-    "start:fe": "ng serve ui",
-    "start:be": "ng serve api",
-    "dev": "concurrently -p=\"{name}\" -n=\"Angular,NestJS\" -c=\"green,blue\" \"npm run start:fe\" \"npm run start:be\"",
-    "start:prod": "node dist/apps/api/main"
+    "help": "nx help"
   },
   "private": true,
   "dependencies": {
