@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import { IUser } from '@api-interfaces';
-import { AccountService, SharedService } from '@app/_services';
+import { ICountry, IGender, IRegion, IUser } from '@api-interfaces';
+import {
+  AccountService,
+  CountryService,
+  GenderService,
+  RegionService,
+  SharedService,
+} from '@app/_services';
 import { MustMatchValidator } from '@app/_validators/must-match.validator';
 
 @Component({
@@ -17,11 +23,18 @@ export class MyAccountComponent implements OnInit {
   isSubmitted = false;
   hidePassword = true;
   hidePasswordRepeat = true;
+  currentYear = new Date();
+  genders: IGender[];
+  countries: ICountry[];
+  regions: IRegion[];
 
   constructor(
     private formBuilder: FormBuilder,
     private accountService: AccountService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private genderService: GenderService,
+    private countryService: CountryService,
+    private regionService: RegionService
   ) {}
 
   // getter for easy access to form fields
@@ -34,8 +47,38 @@ export class MyAccountComponent implements OnInit {
     this.accountService.user.subscribe((user: IUser) => {
       this.user = user;
     });
+    this.getGenders();
+    this.getCountries();
+    this.getRegions();
     this.initForm();
   }
+
+  getGenders = () => {
+    this.genderService.query().subscribe(
+      (response: IGender[]) => {
+        this.genders = response;
+      },
+      (error: string) => {}
+    );
+  };
+
+  getCountries = () => {
+    this.countryService.query().subscribe(
+      (response: IGender[]) => {
+        this.countries = response;
+      },
+      (error: string) => {}
+    );
+  };
+
+  getRegions = () => {
+    this.regionService.query().subscribe(
+      (response: IRegion[]) => {
+        this.regions = response;
+      },
+      (error: string) => {}
+    );
+  };
 
   initForm() {
     this.form = this.formBuilder.group(

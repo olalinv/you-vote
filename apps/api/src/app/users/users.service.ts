@@ -17,11 +17,12 @@ export class UsersService {
   }
 
   async update(id: string, user: CreateUserDto): Promise<User> {
-    const userToUpdate = await this.userModel.findOne({id});
+    console.log(id);
+    console.log(user);
+    const userToUpdate = await this.userModel.findById(id);
     if (!userToUpdate) {
       return null;
     }
-
     const updatedUser = Object.assign(userToUpdate, user);
     return updatedUser.save();
   }

@@ -45,6 +45,17 @@
               top: 12px;
             }
           }
+          .field-container {
+            &.field-slider-container {
+              position: relative;
+              .mat-slider {
+                left: 0;
+                margin: -2px -8px 0;
+                position: absolute;
+                right: 0;
+              }
+            }
+          }
           .mat-raised-button {
             margin: 1rem 0;
             min-width: 18.5rem;

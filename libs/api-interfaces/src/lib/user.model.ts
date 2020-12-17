@@ -5,8 +5,8 @@ export interface IUser {
   readonly token: string;
   username: string;
   // Profile
-  countryOrigin: string;
-  gender: string;
-  provinceResidence: string;
+  countryOrigin: number;
+  gender: number;
+  provinceResidence: number;
   yearBirth: number;
 }

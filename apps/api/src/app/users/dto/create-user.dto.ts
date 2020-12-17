@@ -4,8 +4,8 @@ export class CreateUserDto {
   readonly password: string;
   readonly username: string;
   // Optional
-  readonly countryOrigin: string;
-  readonly gender: string;
-  readonly provinceResidence: string;
+  readonly countryOrigin: number;
+  readonly gender: number;
+  readonly provinceResidence: number;
   readonly yearBirth: number;
 }

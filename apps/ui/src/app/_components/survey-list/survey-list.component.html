@@ -1,41 +1,46 @@
 <div class="survey-list">
   <ng-container *ngIf="mode === 'grid'; else list_mode">
-    <div fxLayout="row" fxLayoutAlign="space-between start"></div>
-    <div *ngFor="let survey of surveys; index as i" fxFlex="50">
-      <mat-card class="mat-elevation-z0 survey" [ngClass]="mode">
-        <a
-          [routerLink]="'/survey/' + survey._id"
-          fxLayout="row"
-          fxLayoutAlign="start strech"
-        >
-          <div fxFlex="80">
-            <img
-              mat-card-image
-              src="assets/img/{{ survey.image.name }}"
-              alt="{{ survey.image.name }}"
-            />
-            <mat-card-header>
-              <mat-card-title>{{ survey.question }}</mat-card-title>
-            </mat-card-header>
-          </div>
-          <div
-            fxFlex="20"
-            fxLayout="column"
-            fxLayoutAlign="start start"
-            class="mat-card-toolbar votes"
+    <div fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between start">
+      <div
+        *ngFor="let survey of surveys; index as i"
+        fxFlex.gt-xs="50"
+      >
+        <mat-card class="mat-elevation-z0 survey" [ngClass]="mode">
+          <a
+            [routerLink]="'/survey/' + survey._id"
+            fxLayout="row"
+            fxLayoutAlign="start strech"
           >
-            <div
-              *ngFor="let answer of survey.surveyResult[0].answers"
-              class="vote"
-            >
-              <mat-icon *ngIf="answer._id === 1">thumb_up_alt</mat-icon>
-              <mat-icon *ngIf="answer._id === 2">thumb_down_alt</mat-icon>
-              <b *ngIf="answer._id === 3" class="ns-nc">NS/NC</b>
-              <span>{{ answer.percent || 0 }}%</span>
+            <div fxFlex="95" fxFlex.gt-xs="80">
+              <img
+                mat-card-image
+                src="assets/img/{{ survey.image.name }}"
+                alt="{{ survey.image.name }}"
+              />
+              <mat-card-header>
+                <mat-card-title>{{ survey.question }}</mat-card-title>
+              </mat-card-header>
             </div>
-          </div>
-        </a>
-      </mat-card>
+            <div
+              fxFlex="5"
+              fxFlex.gt-xs="20"
+              fxLayout="column"
+              fxLayoutAlign="start start"
+              class="mat-card-toolbar votes"
+            >
+              <div
+                *ngFor="let answer of survey.surveyResult[0].answers"
+                class="vote"
+              >
+                <mat-icon *ngIf="answer._id === 1">thumb_up_alt</mat-icon>
+                <mat-icon *ngIf="answer._id === 2">thumb_down_alt</mat-icon>
+                <b *ngIf="answer._id === 3" class="ns-nc">NS/NC</b>
+                <span>{{ answer.percent || 0 }}%</span>
+              </div>
+            </div>
+          </a>
+        </mat-card>
+      </div>
     </div>
   </ng-container>
   <ng-template #list_mode>
