@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { first } from 'rxjs/operators';
 import { MustMatchValidator } from '../../_validators/must-match.validator';
-import { IUser } from '@api-interfaces';
-import { AccountService, SharedService } from '@app/_services';
+import { ICountry, IGender, IRegion, IUser } from '@api-interfaces';
+import { AccountService, CountryService, GenderService, RegionService, SharedService } from '@app/_services';
 
 @Component({
   selector: 'you-vote-register',
@@ -18,6 +18,10 @@ export class RegisterComponent implements OnInit {
   isSubmitted = false;
   hidePassword = true;
   hidePasswordRepeat = true;
+  currentYear = new Date();
+  genders: IGender[];
+  countries: ICountry[];
+  regions: IRegion[];
 
   get f() {
     return this.form.controls;
@@ -27,20 +31,57 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<RegisterComponent>,
     private accountService: AccountService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private genderService: GenderService,
+    private countryService: CountryService,
+    private regionService: RegionService
   ) {}
 
   ngOnInit() {
+    this.getGenders();
+    this.getCountries();
+    this.getRegions();
+    this.initForm();
+  }
+
+  getGenders = () => {
+    this.genderService.query().subscribe(
+      (response: IGender[]) => {
+        this.genders = response;
+      },
+      (error: string) => {}
+    );
+  };
+
+  getCountries = () => {
+    this.countryService.query().subscribe(
+      (response: IGender[]) => {
+        this.countries = response;
+      },
+      (error: string) => {}
+    );
+  };
+
+  getRegions = () => {
+    this.regionService.query().subscribe(
+      (response: IRegion[]) => {
+        this.regions = response;
+      },
+      (error: string) => {}
+    );
+  };
+
+  initForm() {
     this.form = this.formBuilder.group(
       {
         username: ['', Validators.required],
         email: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(8)]],
         passwordRepeat: ['', [Validators.required, Validators.minLength(8)]],
-        yearBirth: [''],
-        gender: [''],
-        provinceResidence: [''],
-        countryOrigin: [''],
+        yearBirth: [null],
+        gender: [null],
+        provinceResidence: [null],
+        countryOrigin: [null],
       },
       {
         validators: [MustMatchValidator('password', 'passwordRepeat')],

@@ -21,13 +21,13 @@ export class User extends Document {
   // surveys: Types.ObjectId[];
 
   @Prop()
-  countryOrigin: string;
+  countryOrigin: number;
 
   @Prop()
-  gender: string;
+  gender: number;
 
   @Prop()
-  provinceResidence: string;
+  provinceResidence: number;
 
   @Prop()
   yearBirth: number;

@@ -9,17 +9,15 @@
       <mat-icon>close</mat-icon>
     </button>
     <mat-card-header>
-      <mat-card-title>
-        Registro
-      </mat-card-title>
+      <mat-card-title> Registro </mat-card-title>
       <mat-card-subtitle>
         Regístrate para participar en las encuestas y crear las tuyas propias
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-          <div fxFlex="45" class="field-container">
+        <div fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+          <div fxFlex.gt-xs="45" class="field-container">
             <mat-form-field appearance="fill">
               <mat-label>Nombre de usuario</mat-label>
               <input
@@ -36,7 +34,7 @@
               </div>
             </mat-form-field>
           </div>
-          <div fxFlex="45" class="field-container">
+          <div fxFlex.gt-xs="45" class="field-container">
             <mat-form-field appearance="fill">
               <mat-label>Email</mat-label>
               <input
@@ -54,8 +52,8 @@
             </mat-form-field>
           </div>
         </div>
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-          <div fxFlex="45" class="field-container">
+        <div fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+          <div fxFlex.gt-xs="45" class="field-container">
             <mat-form-field appearance="fill">
               <mat-label>Contraseña</mat-label>
               <input
@@ -86,7 +84,7 @@
               </div>
             </mat-form-field>
           </div>
-          <div fxFlex="45" class="field-container">
+          <div fxFlex.gt-xs="45" class="field-container">
             <mat-form-field appearance="fill">
               <mat-label>Repite contraseña</mat-label>
               <input
@@ -126,43 +124,54 @@
           interés.<br />Los datos serán tratados de forma confidencial conforme
           a la normativa LPGD.
         </p>
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-          <div fxFlex="45" class="field-container">
-            <mat-form-field appearance="fill">
+        <div fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+          <div fxFlex.gt-xs="45" class="field-container field-slider-container">
+            <mat-form-field appearance="standard" floatLabel="always">
               <mat-label>Año de nacimiento</mat-label>
-              <input
-                matInput
+              <input matInput readonly />
+              <mat-slider
                 formControlName="yearBirth"
-                placeholder="Año de nacimiento"
-              />
+                min="1900"
+                max="{{ currentYear | date: 'yyyy' }}"
+                step="1"
+                thumbLabel
+              >
+              </mat-slider>
             </mat-form-field>
           </div>
-          <div fxFlex="45" class="field-container">
+          <div fxFlex.gt-xs="45" class="field-container">
             <mat-form-field appearance="fill">
               <mat-label>Género</mat-label>
-              <input matInput formControlName="gender" placeholder="Género" />
+              <mat-select formControlName="gender" required>
+                <mat-option *ngFor="let gender of genders" [value]="gender._id">
+                  {{ gender.name }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
         </div>
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-          <div fxFlex="45" class="field-container">
+        <div fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+          <div fxFlex.gt-xs="45" class="field-container">
             <mat-form-field appearance="fill">
-              <mat-label>Provincia de residencia</mat-label>
-              <input
-                matInput
-                formControlName="provinceResidence"
-                placeholder="Provincia de residencia"
-              />
+              <mat-label>País</mat-label>
+              <mat-select formControlName="countryOrigin" required>
+                <mat-option
+                  *ngFor="let country of countries"
+                  [value]="country._id"
+                >
+                  {{ country.name }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
-          <div fxFlex="45" class="field-container">
+          <div fxFlex.gt-xs="45" class="field-container">
             <mat-form-field appearance="fill">
-              <mat-label>País de origen</mat-label>
-              <input
-                matInput
-                formControlName="countryOrigin"
-                placeholder="País de origen"
-              />
+              <mat-label>Comunidad Autónoma</mat-label>
+              <mat-select formControlName="provinceResidence" required>
+                <mat-option *ngFor="let region of regions" [value]="region._id">
+                  {{ region.name }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
         </div>
