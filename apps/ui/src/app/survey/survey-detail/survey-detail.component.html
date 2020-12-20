@@ -25,7 +25,13 @@
         <mat-icon *ngIf="answer._id === 1">thumb_up_alt</mat-icon>
         <mat-icon *ngIf="answer._id === 2">thumb_down_alt</mat-icon>
         <b *ngIf="answer._id === 3" class="ns-nc">NS/NC</b>
-        <span>{{ answer.percent || 0 }}%</span>
+        <span>
+          <ng-container *ngIf="answer.percent; else default_number">
+            {{ answer.percent | number: '1.0-2' }}
+          </ng-container>
+          <ng-template #default_number>0</ng-template>
+          %
+        </span>
       </div>
     </div>
   </div>
@@ -34,9 +40,7 @@
       <ng-container *ngIf="!vote?._id; else you_voted"
         >Aún no has votado en esta encuesta.<br />¿Qué opinas?</ng-container
       >
-      <ng-template #you_voted>
-        Ya has votado en esta escuesta.
-      </ng-template>
+      <ng-template #you_voted> Ya has votado en esta escuesta. </ng-template>
     </div>
     <div *ngIf="user; else login_to_vote" fxFlex="70" class="vote-options">
       <mat-radio-group

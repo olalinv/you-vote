@@ -1,10 +1,7 @@
 <div class="survey-list">
   <ng-container *ngIf="mode === 'grid'; else list_mode">
     <div fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between start">
-      <div
-        *ngFor="let survey of surveys; index as i"
-        fxFlex.gt-xs="50"
-      >
+      <div *ngFor="let survey of surveys; index as i" fxFlex.gt-xs="50">
         <mat-card class="mat-elevation-z0 survey" [ngClass]="mode">
           <a
             [routerLink]="'/survey/' + survey._id"
@@ -35,7 +32,13 @@
                 <mat-icon *ngIf="answer._id === 1">thumb_up_alt</mat-icon>
                 <mat-icon *ngIf="answer._id === 2">thumb_down_alt</mat-icon>
                 <b *ngIf="answer._id === 3" class="ns-nc">NS/NC</b>
-                <span>{{ answer.percent || 0 }}%</span>
+                <span>
+                  <ng-container *ngIf="answer.percent; else default_number">
+                    {{ answer.percent | number: '1.0-2' }}
+                  </ng-container>
+                  <ng-template #default_number>0</ng-template>
+                  %
+                </span>
               </div>
             </div>
           </a>
@@ -80,7 +83,13 @@
                 <mat-icon *ngIf="answer._id === 1">thumb_up_alt</mat-icon>
                 <mat-icon *ngIf="answer._id === 2">thumb_down_alt</mat-icon>
                 <b *ngIf="answer._id === 3" class="ns-nc">NS/NC</b>
-                <span>{{ answer.percent || 0 }}%</span>
+                <span>
+                  <ng-container *ngIf="answer.percent; else default_number">
+                    {{ answer.percent | number: '1.0-2' }}
+                  </ng-container>
+                  <ng-template #default_number>0</ng-template>
+                  %
+                </span>
               </div>
             </div>
           </div>
